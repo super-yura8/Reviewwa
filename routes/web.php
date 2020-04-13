@@ -14,3 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/users', function () {
+        return view('layouts.users');
+    });
+
+    Route::get('/reviews', function () {
+       return view('layouts.reviews');
+    });
+});
