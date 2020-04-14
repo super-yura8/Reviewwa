@@ -17,8 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin']], function () {
+
+    Route::get('/', function (){
+        return view('layouts.master');
+    });
 
     Route::get('/users', function () {
         return view('layouts.users');
