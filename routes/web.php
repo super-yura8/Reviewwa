@@ -19,15 +19,19 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin']], function () {
 
+    Route::get('/',function (){
+       return redirect(route('adminMain'));
+    });
+
     Route::get('/main', function (){
         return view('layouts.master');
-    });
+    })->name('adminMain');
 
     Route::get('/users', function () {
         return view('layouts.users');
-    });
+    })->name('adminUsers');
 
     Route::get('/reviews', function () {
        return view('layouts.reviews');
-    });
+    })->name('adminReviews');
 });
