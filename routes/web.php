@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin']], function () {
 
-    Route::get('/', function (){
+    Route::get('/main', function (){
         return view('layouts.master');
     });
 
