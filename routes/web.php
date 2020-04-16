@@ -34,4 +34,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin']],
     Route::get('/reviews', function () {
        return view('layouts.reviews');
     })->name('adminReviews');
+
+    Route::get('/addUser', function (){
+       return view('layouts.addUser');
+    });
 });

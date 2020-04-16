@@ -85,6 +85,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 Обзоры
                             </p>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="addUser" class="nav-link">
+                            <i class="nav-icon fas fa-user-plus"></i>
+                            <p>
+                                Создать пользователя
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
