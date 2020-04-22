@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class AddUserFormRequest extends FormRequest
 {
     const REG_PASS = '/(?=.*[0-9])(?!.*[!@#$%^&*-])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/';
+    const REG_LOG = '/^[a-zA-Z][a-zA-Z0-9-_\.]{1,30}$/';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,7 +27,7 @@ class AddUserFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:30|regex:'.self::REG_LOG,
             'email' =>'required|email|max:255',
             'password' => 'required|string|max:60|min:7|regex:'.self::REG_PASS,
             'passwordAgain'=> 'required|string|max:60|min:7|regex:'.self::REG_PASS,
