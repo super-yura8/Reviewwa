@@ -17,27 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin|admin']], function () {
 
     Route::get('/',function (){
        return redirect(route('admin.main'));
     });
 
-    Route::get('/main', function (){
-        return view('layouts.master');
-    })->name('admin.main');
-
-    Route::get('/users', function () {
-        return view('layouts.users');
-    })->name('admin.users');
-
-    Route::get('/reviews', function () {
-       return view('layouts.reviews');
-    })->name('admin.reviews');
-
-    Route::get('/addUser', function (){
-       return view('layouts.addUser');
-    });
-
+    Route::get('/main', 'AdminController@store')->name('admin.main');
+    Route::get('/users','AdminController@storeUsers')->name('admin.users');
+    Route::get('/reviews', 'AdminController@storeReviews')->name('admin.reviews');
+    Route::get('/addUser','AdminController@storeAddUser')->name('admin.addUser');
     Route::post('/addUser/add', 'AdminController@createUser')->name('admin.add');
 });

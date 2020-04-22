@@ -14,7 +14,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -48,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="" class="brand-link">
+        <a href="../" class="brand-link">
             <span class="brand-text font-weight-light">Reviewwa</span>
         </a>
 
@@ -60,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <img src="" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <p class="d-block text-white">Имя админа</p>
+                    <p class="d-block text-white">{{ Auth::user()->name }}</p>
                 </div>
             </div>
 
@@ -122,19 +121,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="far fa-user"></i></span>
+                            <a href="{{ route('admin.users') }}" class="info-box-icon bg-info"><i class="far fa-user"></i></a>
+
                             <div class="info-box-content">
                                 <span class="info-box-text">Пользователи</span>
-                                <span class="info-box-number">число</span>
+                                <span class="info-box-number">{{ $counts['Users'] }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="far far fa-bookmark"></i></span>
+                            <a href="{{ route('admin.reviews') }}" class="info-box-icon bg-success"><i class="far far fa-bookmark"></i></a>
                             <div class="info-box-content">
                                 <span class="info-box-text">Обзоры</span>
-                                <span class="info-box-number">число</span>
+                                <span class="info-box-number">{{ $counts['reviews'] }}</span>
                             </div>
                         </div>
                     </div>

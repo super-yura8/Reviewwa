@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddUserFormRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\AdminHelp;
 
 class AdminController extends Controller
 {
+    use AdminHelp;
+
     /**
      * Create user function
      *
@@ -34,5 +37,51 @@ class AdminController extends Controller
 
             return response()->json(['userName' => $data['name']]);
         }
+    }
+
+    /**
+     * show page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function storeUsers()
+    {
+        $users = User::all();
+        $counts = self::returnCounts();
+        return view('layouts.users', compact('users', 'counts'));
+    }
+
+    /**
+     * show page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function storeReviews()
+    {
+        $reviews = 'Reviews table';
+        $counts = self::returnCounts();
+        return view('layouts.reviews', compact('reviews','counts'));
+    }
+
+    /**
+     * show page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function storeAddUser()
+    {
+        $counts = self::returnCounts();
+        return view('layouts.addUser', compact('counts'));
+    }
+
+    /**
+     * show page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function store()
+    {
+        $counts = self::returnCounts();
+        return view('layouts.master', compact('counts'));
     }
 }
