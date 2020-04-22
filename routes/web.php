@@ -20,22 +20,24 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin']], function () {
 
     Route::get('/',function (){
-       return redirect(route('adminMain'));
+       return redirect(route('admin.main'));
     });
 
     Route::get('/main', function (){
         return view('layouts.master');
-    })->name('adminMain');
+    })->name('admin.main');
 
     Route::get('/users', function () {
         return view('layouts.users');
-    })->name('adminUsers');
+    })->name('admin.users');
 
     Route::get('/reviews', function () {
        return view('layouts.reviews');
-    })->name('adminReviews');
+    })->name('admin.reviews');
 
     Route::get('/addUser', function (){
        return view('layouts.addUser');
     });
+
+    Route::post('/addUser/add', 'AdminController@createUser')->name('admin.add');
 });
