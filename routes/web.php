@@ -17,15 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:super-admin|admin']], function () {
+Route::name('admin.')->prefix('admin')->middleware('auth','role:super-admin|admin')->group(function () {
 
     Route::get('/',function (){
        return redirect(route('admin.main'));
     });
 
-    Route::get('/main', 'AdminController@store')->name('admin.main');
-    Route::get('/users','AdminController@storeUsers')->name('admin.users');
-    Route::get('/reviews', 'AdminController@storeReviews')->name('admin.reviews');
-    Route::get('/addUser','AdminController@storeAddUser')->name('admin.addUser');
-    Route::post('/addUser/add', 'AdminController@createUser')->name('admin.add');
+    Route::get('/main', 'AdminController@store')->name('main');
+    Route::get('/users','AdminController@storeUsers')->name('users');
+    Route::get('/reviews', 'AdminController@storeReviews')->name('reviews');
+    Route::get('/addUser','AdminController@storeAddUser')->name('addUser');
+    Route::post('/addUser/add', 'AdminController@createUser')->name('add');
 });
