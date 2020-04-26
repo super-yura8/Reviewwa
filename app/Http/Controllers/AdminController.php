@@ -44,7 +44,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function storeUsers()
+    public function showUsers()
     {
         $users = User::all();
         $counts = self::returnCounts();
@@ -56,7 +56,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function storeReviews()
+    public function showReviews()
     {
         $reviews = 'Reviews table';
         $counts = self::returnCounts();
@@ -68,7 +68,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function storeAddUser()
+    public function showAddUser()
     {
         $counts = self::returnCounts();
         return view('layouts.addUser', compact('counts'));
@@ -79,7 +79,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store()
+    public function index()
     {
         $counts = self::returnCounts();
         return view('layouts.master', compact('counts'));

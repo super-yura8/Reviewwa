@@ -23,9 +23,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth','role:super-admin|admi
        return redirect(route('admin.main'));
     });
 
-    Route::get('/main', 'AdminController@store')->name('main');
-    Route::get('/users','AdminController@storeUsers')->name('users');
-    Route::get('/reviews', 'AdminController@storeReviews')->name('reviews');
-    Route::get('/addUser','AdminController@storeAddUser')->name('addUser');
+    Route::get('/main', 'AdminController@index')->name('main');
+    Route::get('/users','AdminController@showUsers')->name('users');
+    Route::get('/reviews', 'AdminController@showReviews')->name('reviews');
+    Route::get('/addUser','AdminController@showAddUser')->name('addUser');
     Route::post('/addUser/add', 'AdminController@createUser')->name('add');
 });
