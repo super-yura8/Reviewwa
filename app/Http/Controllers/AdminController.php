@@ -40,6 +40,23 @@ class AdminController extends Controller
     }
 
     /**
+     * Ban user function
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function banUser($id)
+    {
+        $user = User::find($id);
+        $this->authorize('canBan', $user);
+        $user->is_ban = 1;
+        $user->save();
+        return redirect(route('admin.users'));
+    }
+
+
+    /**
      * show page
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -60,7 +77,7 @@ class AdminController extends Controller
     {
         $reviews = 'Reviews table';
         $counts = self::returnCounts();
-        return view('layouts.reviews', compact('reviews','counts'));
+        return view('layouts.reviews', compact('reviews', 'counts'));
     }
 
     /**

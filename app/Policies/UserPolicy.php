@@ -19,4 +19,20 @@ class UserPolicy
     {
         return $user->hasPermissionTo('create admin');
     }
+
+
+    /**
+     * Check user ban permission
+     *
+     * @param User $currentUser
+     * @param User $user
+     * @return bool
+     */
+    public function canBan(User $currentUser, User $user)
+    {
+        return$currentUser->hasPermissionTo('ban user')
+            && $currentUser->id != $user->id
+            && ($currentUser->isAnyAdmin() != $user->isAnyAdmin()
+                || ($currentUser->isSuperAdmin() && $user->isAdmin()));
+    }
 }
