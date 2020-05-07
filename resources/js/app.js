@@ -6,6 +6,8 @@
 
 require('./bootstrap');
 require('admin-lte');
+require('@fancyapps/fancybox/dist/jquery.fancybox');
+require('jquery-datepicker');
 require('./main');
 window.Vue = require('vue');
 

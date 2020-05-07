@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserFormRequest;
+use App\Http\Requests\BanUserFormRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\AdminHelp;
@@ -42,17 +43,21 @@ class AdminController extends Controller
     /**
      * Ban user function
      *
-     * @param int $id
+     * @param BanUserFormRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function banUser($id)
+    public function banUser(BanUserFormRequest $request)
     {
-        $user = User::find($id);
+        $data = $request->all();
+        $user = User::find($data['id']);
         $this->authorize('canBan', $user);
+        $date = new \DateTime($data['date']);
+        $date = $date->format('Y-m-d');
+        $user->banned_until = $date;
         $user->is_ban = 1;
         $user->save();
-        return redirect(route('admin.users'));
+        return response()->json(['userId' => $data['id']]);
     }
 
 

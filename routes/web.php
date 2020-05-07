@@ -28,5 +28,5 @@ Route::name('admin.')->prefix('admin')->middleware('auth','role:super-admin|admi
     Route::get('/reviews', 'AdminController@showReviews')->name('reviews');
     Route::get('/addUser','AdminController@showAddUser')->name('addUser');
     Route::post('/addUser/add', 'AdminController@createUser')->name('add');
-    Route::get('/ban/user/{id}', 'AdminController@banUser')->name('banUser');
+    Route::post('/ban/user', 'AdminController@banUser')->name('banUser');
 });
