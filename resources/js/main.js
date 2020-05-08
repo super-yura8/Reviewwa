@@ -37,7 +37,6 @@ $(document).ready(function () {
                 var button = $('td[class=user-id][data-id=' + data.userId +']').parent().find('td a.banBtn');
                 button.removeClass(['banBtn','btn-danger']);
                 button.addClass(['unbanBtn','btn-success']);
-                button.html('Разбанить');
                 $.fancybox.close('#banForm');
             },
             error: function (data) {

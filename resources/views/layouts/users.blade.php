@@ -21,11 +21,9 @@
                 <td>
                     <div></div>
                     @if($user->is_ban)
-                        <a class="unbanBtn btn btn-success text-white" href="#">Разбанить</a>
+                        <a class="unbanBtn btn btn-success text-white" href="#"></a>
                     @else
-                        <a data-fancybox="" data-src="#banForm" data-modal="true" href="#" class="banBtn btn btn-danger text-white">
-                            Забанить
-                        </a>
+                        <a data-fancybox="" data-src="#banForm" data-modal="true" href="#" class="banBtn btn btn-danger text-white"></a>
                     @endif
                     <a class="btn btn-success text-white">Изменить</a>
                 </td>
