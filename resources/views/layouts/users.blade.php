@@ -33,7 +33,6 @@
     <div style="display: none;" id="banForm">
         <h2>Заблокировать позьзователя</h2>
         <form action="{{ route('admin.banUser') }}" method="post">
-
             @csrf
             <input type="hidden" name="id">
             <label class="mr-1">Заблокировать до </label>

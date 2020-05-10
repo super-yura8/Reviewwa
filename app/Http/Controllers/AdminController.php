@@ -60,6 +60,25 @@ class AdminController extends Controller
         return response()->json(['userId' => $data['id']]);
     }
 
+    /**
+     * Unban user function
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function unbanUser($id)
+    {
+        if ($user = User::find($id)){
+            $this->authorize('canUnban', $user);
+            if ($user->is_ban){
+                $user->is_ban=0;
+                $user->banned_until=null;
+                $user->save();
+                return response('User unban',200);
+            }
+        }
+    }
 
     /**
      * show page

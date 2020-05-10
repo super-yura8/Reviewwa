@@ -30,9 +30,14 @@ class UserPolicy
      */
     public function canBan(User $currentUser, User $user)
     {
-        return$currentUser->hasPermissionTo('ban user')
+        return $currentUser->hasPermissionTo('ban user')
             && $currentUser->id != $user->id
             && ($currentUser->isAnyAdmin() != $user->isAnyAdmin()
                 || ($currentUser->isSuperAdmin() && $user->isAdmin()));
+    }
+
+    public function canUnban(User $currentUser, User $user)
+    {
+        return $user->id != $currentUser->id && $user->is_ban && $currentUser->hasPermissionTo('unban user');
     }
 }

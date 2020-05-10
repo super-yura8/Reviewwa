@@ -1,3 +1,7 @@
 .banBtn::before{
     content: "Забанить";
 }
+
+.unbanBtn::before{
+    content: "Разбанить";
+}

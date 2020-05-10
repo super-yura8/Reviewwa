@@ -48,8 +48,8 @@ class User extends Authenticatable
         return $this->hasRole('super-admin');
     }
 
-    public function isAnyAdmin(){
+    public function isAnyAdmin()
+    {
         return $this->hasAnyRole(['admin', 'super-admin']);
     }
-
 }
