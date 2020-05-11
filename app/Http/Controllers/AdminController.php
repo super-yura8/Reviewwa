@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddUserFormRequest;
 use App\Http\Requests\BanUserFormRequest;
+use App\Http\Requests\ChangeFormRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\AdminHelp;
@@ -75,11 +76,28 @@ class AdminController extends Controller
                 $user->is_ban=0;
                 $user->banned_until=null;
                 $user->save();
-                return response('User unban',200);
+                return response('',200);
             }
         }
     }
 
+    /**
+     * Update user function
+     *
+     * @param ChangeFormRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function updateUser(ChangeFormRequest $request, $id)
+    {
+        $data = $request->all();
+        $user = User::find($id);
+        $this->authorize('canChange',$user);
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->save();
+        return response()->json(['name' => $data['name'], 'email' => $data['email']]);}
     /**
      * show page
      *

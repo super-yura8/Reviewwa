@@ -40,4 +40,12 @@ class UserPolicy
     {
         return $user->id != $currentUser->id && $user->is_ban && $currentUser->hasPermissionTo('unban user');
     }
+
+    public function canChange(User $currentUser, User $user)
+    {
+        return $currentUser->hasPermissionTo('edit user')
+            && ($currentUser->isAnyAdmin() != $user->isAnyAdmin()
+                || ($currentUser->isSuperAdmin() && $user->isAdmin()))
+            || $currentUser->id == $user->id;
+    }
 }

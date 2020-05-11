@@ -30,4 +30,5 @@ Route::name('admin.')->prefix('admin')->middleware('auth','role:super-admin|admi
     Route::post('/addUser/add', 'AdminController@createUser')->name('add');
     Route::post('/ban/user', 'AdminController@banUser')->name('banUser');
     Route::get('/unban/user/{id}','AdminController@unbanUser')->name('unbanUser')->where('id','^[0-9]+$');
+    Route::put('/update/user/{id}','AdminController@updateUser')->name('updateUser');
 });
