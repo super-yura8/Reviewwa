@@ -5,6 +5,9 @@
  */
 
 require('./bootstrap');
+require('admin-lte');
+require('jquery-ui/ui/effects/effect-slide');
+require('./main');
 
 window.Vue = require('vue');
 
