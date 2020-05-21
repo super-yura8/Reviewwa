@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.mainPage');
-});
+Route::get('/', 'UserController@index')->name('mainPage');
+Route::get('/addReview', 'UserController@showReviewEditor');
+Route::post('/uploader/img/upload', 'UserController@uploadImg');

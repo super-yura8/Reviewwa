@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand text-white" href="#">Reviewwa</a>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
-            <a class="btn btn-success text-monospace text-white mr-5">Добавить обзор</a>
+            <a href="addReview" class="btn btn-success text-monospace text-white mr-5">Добавить обзор</a>
             <div class="input-group w-25">
                 <input type="text" id="search-hide" class="form-control" placeholder="Поиск" style="display: none">
             </div>
