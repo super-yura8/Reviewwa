@@ -26,7 +26,7 @@ $(document).ready(function () {
                 url: 'uploader/review/upload?_token=' + $('meta[name="csrf-token"]').attr('content'),
                 method: 'post',
                 data: {
-                    title: '<h2>'+$('#editor input').val()+'</h2>',
+                    title: $('#editor input').val(),
                     content: CKEDITOR.instances.review.getData()},
                 success: function (data) {
                     alert('success');
