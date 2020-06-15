@@ -13,4 +13,5 @@
 
 Route::get('/', 'UserController@index')->name('mainPage');
 Route::get('/addReview', 'UserController@showReviewEditor');
-Route::post('/uploader/img/upload', 'UserController@uploadImg');
+Route::post('/uploader/img/upload', 'FileController@uploadImg');
+Route::post('uploader/review/upload', 'ReviewController@createReview')->name('reviewUpload');
