@@ -1,3 +1,10 @@
+html, body {
+    min-width: 100%;
+    min-height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
 body {
     padding-top: 56px;
 }
@@ -5,3 +12,24 @@ body {
 html{
     height: 100%;
 }
+.my-custom-full-class img{
+    width: 668px;
+}
+
+#editor{
+    width: 725px;
+}
+.post-content{
+    overflow: hidden;
+    max-height: 700px;
+
+}
+.post{
+
+    padding-bottom: 0;
+}
+img{
+    width: 100% !important;
+    height: auto !important;
+}
+

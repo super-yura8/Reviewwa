@@ -12,7 +12,7 @@ class ReviewController extends Controller
     {
         $data = $request->all();
         Review::create(['title' => $data['title'], 'content' => $data['content'], 'user_id' => 1]); //надо будет поменять на Auth::user()->id
-        return json_encode([
+        return response()->json([
             'success' => 'true',
             'message' => 'Review created'
         ]);

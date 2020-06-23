@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top header">
     <div class="container">
-        <a class="navbar-brand text-white" href="#">Reviewwa</a>
+        <a class="navbar-brand text-white" href="http://reviewwa/">Reviewwa</a>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
             <a href="addReview" class="btn btn-success text-monospace text-white mr-5">Добавить обзор</a>
             <div class="input-group w-25">

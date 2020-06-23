@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'UserController@index')->name('mainPage');
-Route::get('/addReview', 'UserController@showReviewEditor');
+Route::get('/', 'MainPageController@index')->name('mainPage');
+Route::get('/addReview', 'MainPageController@showReviewEditor');
 Route::post('/uploader/img/upload', 'FileController@uploadImg');
 Route::post('uploader/review/upload', 'ReviewController@createReview')->name('reviewUpload');
+Route::get('/Reviews','MainPageController@getPage')->name('getPage');
