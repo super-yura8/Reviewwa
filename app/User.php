@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasAnyRole(['admin', 'super-admin']);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
 }
