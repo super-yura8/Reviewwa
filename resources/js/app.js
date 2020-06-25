@@ -9,7 +9,6 @@ require('admin-lte');
 require('@fancyapps/fancybox/dist/jquery.fancybox');
 require('jquery-ui/ui/effects/effect-slide');
 require('axios');
-require('jquery-datepicker');
 require('./main');
 window.Vue = require('vue');
 

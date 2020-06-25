@@ -105,7 +105,6 @@ $(document).ready(function () {
 
     $.fancybox.defaults.hash = false;
 
-    $('#date').datepicker();
     var response;
 
     async function getData(url) {
@@ -214,4 +213,5 @@ $(document).ready(function () {
             }
         }
     });
-)};
+});
+
