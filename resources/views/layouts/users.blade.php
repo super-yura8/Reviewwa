@@ -1,4 +1,4 @@
-@extends('layouts.master')
+    @extends('layouts.master')
 @section('table')
     <table class="table">
         <tr>
@@ -15,7 +15,7 @@
                 <td class="user-id" data-id="{{ $user->id }}">{{ $user->id }}</td>
                 <td class="user-name">{{ $user->name }}</td>
                 <td class="user-email">{{ $user->email }}</td>
-                <td></td>
+                <td class="user-reviews">{{ $user->reviews()->count() }}</td>
                 <td></td>
                 <td>{{ $user->created_at }}</td>
                 <td>

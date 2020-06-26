@@ -103,6 +103,20 @@ $(document).ready(function () {
         })
     });
 
+    $('.user-reviews').on('click',function () {
+        var userName = $(this).siblings('.user-name').html();
+        $.ajax({
+            url: 'reviews/' + userName,
+            success: function(data){
+                window.history.pushState({}, '', 'reviews/' + userName);
+                $('body').html(data);
+            }
+        });
+        // var url = document.location;
+        // url.pathname = '/admin/reviews/' + userName;
+
+    });
+
     $.fancybox.defaults.hash = false;
 
     var response;
@@ -182,7 +196,7 @@ $(document).ready(function () {
                                 '                <p class="float-left m-0">\n' +
                                 '                    дата публикации: ' + formatted_date + '\n' +
                                 '                </p>\n' +
-                                '                <p class="float-left ml-1 mr-1 mb-0">\n' +
+                                '                <p class="float-left ml-1 mr-1 mb-0">\n' + 
                                 '                    цифра\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +

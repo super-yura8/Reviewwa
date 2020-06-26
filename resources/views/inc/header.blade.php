@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-info fixed-top header">
+<nav class="navbar navbar-expand-lg navbar-light bg-info  header">
     <div class="container">
         <a class="navbar-brand text-white" href="http://reviewwa/">Reviewwa</a>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddUserFormRequest;
 use App\Http\Requests\BanUserFormRequest;
 use App\Http\Requests\ChangeFormRequest;
+use App\Model\Review;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\AdminHelp;
@@ -70,13 +71,13 @@ class AdminController extends Controller
      */
     public function unbanUser($id)
     {
-        if ($user = User::find($id)){
+        if ($user = User::find($id)) {
             $this->authorize('canUnban', $user);
-            if ($user->is_ban){
-                $user->is_ban=0;
-                $user->banned_until=null;
+            if ($user->is_ban) {
+                $user->is_ban = 0;
+                $user->banned_until = null;
                 $user->save();
-                return response('',200);
+                return response('', 200);
             }
         }
     }
@@ -93,11 +94,13 @@ class AdminController extends Controller
     {
         $data = $request->all();
         $user = User::find($id);
-        $this->authorize('canChange',$user);
+        $this->authorize('canChange', $user);
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->save();
-        return response()->json(['name' => $data['name'], 'email' => $data['email']]);}
+        return response()->json(['name' => $data['name'], 'email' => $data['email']]);
+    }
+
     /**
      * show page
      *
@@ -117,7 +120,14 @@ class AdminController extends Controller
      */
     public function showReviews()
     {
-        $reviews = 'Reviews table';
+        $reviews = Review::all();
+        $counts = self::returnCounts();
+        return view('layouts.reviews', compact('reviews', 'counts'));
+    }
+
+    public function showReviewsByUser($user)
+    {
+        $reviews = Review::all()->where('user.name',$user);
         $counts = self::returnCounts();
         return view('layouts.reviews', compact('reviews', 'counts'));
     }

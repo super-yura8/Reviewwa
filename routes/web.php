@@ -28,9 +28,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth','role:super-admin|admi
     Route::get('/main', 'AdminController@index')->name('main');
     Route::get('/users','AdminController@showUsers')->name('users');
     Route::get('/reviews', 'AdminController@showReviews')->name('reviews');
+    Route::get('/reviews/{user}', 'AdminController@showReviewsByUser')->name('reviewsByUser');
     Route::get('/addUser','AdminController@showAddUser')->name('addUser');
     Route::post('/addUser/add', 'AdminController@createUser')->name('add');
     Route::post('/ban/user', 'AdminController@banUser')->name('banUser');
     Route::get('/unban/user/{id}','AdminController@unbanUser')->name('unbanUser')->where('id','^[0-9]+$');
-    Route::put('/update/user/{id}','AdminController@updateUser')->name('updateUser');
+    Route::put('/update/user/{id}','AdminController@updateUser')->name('updateUser')->where('id','^[0-9]+$');
 });
