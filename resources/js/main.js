@@ -103,11 +103,11 @@ $(document).ready(function () {
         })
     });
 
-    $('.user-reviews').on('click',function () {
+    $('.user-reviews').on('click', function () {
         var userName = $(this).siblings('.user-name').html();
         $.ajax({
             url: 'reviews/' + userName,
-            success: function(data){
+            success: function (data) {
                 window.history.pushState({}, '', 'reviews/' + userName);
                 $('body').html(data);
             }
@@ -196,7 +196,7 @@ $(document).ready(function () {
                                 '                <p class="float-left m-0">\n' +
                                 '                    дата публикации: ' + formatted_date + '\n' +
                                 '                </p>\n' +
-                                '                <p class="float-left ml-1 mr-1 mb-0">\n' + 
+                                '                <p class="float-left ml-1 mr-1 mb-0">\n' +
                                 '                    цифра\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +
@@ -227,5 +227,26 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('#content').delegate('.post .footer .like', 'click', function () {
+        var el = $(this);
+        var id = el.parent().parent().attr('id');
+        var like = el.siblings('.like-count');
+        $.ajax({
+            url: 'like/' + id,
+            success: function (data) {
+                if (data.action == 'like') {
+                    like.html(Number(like.html()) + 1);
+                    el.find('i').attr('class', 'fa fa-heart')
+
+
+                }
+                else {
+                    like.html(Number(like.html()) - 1);
+                    el.find('i').attr('class', 'far fa-heart')
+                }
+            }
+        });
+    })
 });
 

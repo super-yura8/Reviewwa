@@ -16,6 +16,17 @@ Route::get('/addReview', 'MainPageController@showReviewEditor');
 Route::post('/uploader/img/upload', 'FileController@uploadImg');
 Route::post('uploader/review/upload', 'ReviewController@createReview')->name('reviewUpload');
 Route::get('/Reviews','MainPageController@getPage')->name('getPage');
+Route::get('/Reviews/{id}')->name('review')->where('id','^[0-9]+$');
+Route::middleware('auth')->group(function () {
+
+    Route::get('/like/{id}', 'ReviewController@like')->name('like')->where('id','^[0-9]+$');
+    Route::post('/comment/{id}')->middleware('can:write comment')->name('comment')->where('id','^[0-9]+$');
+    Route::delete('/delete/comment/{id}')->name('delComment')->where('id','^[0-9]+$');
+    Route::put('/edit/comment/{id}')->name('editComment')->where('id','^[0-9]+$');
+    Route::delete('/delete/review/{id}')->name('delReview')->where('id','^[0-9]+$');
+    Route::put('/edit/review/{id}')->name('editReview')->where('id','^[0-9]+$');
+
+});
 
 Auth::routes();
 

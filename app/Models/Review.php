@@ -11,6 +11,11 @@ class Review extends Model
         'title', 'content', 'user_id',
     ];
 
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Likes');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
