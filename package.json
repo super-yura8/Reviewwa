@@ -28,6 +28,7 @@
     "dependencies": {
         "@fancyapps/fancybox": "^3.5.7",
         "admin-lte": "^3.0.4",
+        "autosize": "^4.0.2",
         "jquery-datepicker": "^1.12.3",
         "jquery-ui": "^1.12.1",
         "vue-template-compiler": "^2.6.11",

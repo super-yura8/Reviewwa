@@ -21,6 +21,15 @@ $(document).ready(function () {
         })
     });
 
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    function parseDate(date) {
+        var date = new Date(date);
+        var formatedDate = date.getDate() + "-" + (date.getMonth() > 10 ? date.getMonth() : '0' + date.getMonth()) + "-" + date.getFullYear();
+        return formatedDate;
+    }
+
+
     //filling out the ban form
     $('td').delegate('.banBtn', 'click', function () {
         var id = $(this).parent().parent().find('.user-id').html();
@@ -112,9 +121,6 @@ $(document).ready(function () {
                 $('body').html(data);
             }
         });
-        // var url = document.location;
-        // url.pathname = '/admin/reviews/' + userName;
-
     });
 
     $.fancybox.defaults.hash = false;
@@ -151,20 +157,35 @@ $(document).ready(function () {
 
 
     $('#editor a').on('click', function (e) {
-        var data = new FormData();
-        data.append('content', CKEDITOR.instances.review.getData());
         e.preventDefault();
-        $.ajax({
-            url: 'uploader/review/upload?_token=' + $('meta[name="csrf-token"]').attr('content'),
-            method: 'post',
-            data: {
-                title: $('#editor input').val(),
-                content: CKEDITOR.instances.review.getData()
-            },
-            success: function (data) {
-                alert(data.message);
-            }
-        })
+        var id = $('input[name=id]').val();
+        if (id) {
+            $.ajax({
+                url: '/edit/review/' + id + '?_token=' + csrfToken,
+                method: 'put',
+                data: {
+                    title: $('#editor input[type=text]').val(),
+                    content: CKEDITOR.instances.review.getData()
+                },
+                success: function (data) {
+                    alert(data.message);
+                }
+            })
+        }
+        else{
+            $.ajax({
+                url: 'uploader/review/upload?_token=' + csrfToken,
+                method: 'post',
+                data: {
+                    title: $('#editor input').val(),
+                    content: CKEDITOR.instances.review.getData()
+                },
+                success: function (data) {
+                    alert(data.message);
+                }
+            })
+        }
+
     });
     var height = $('#content').height();
     var pageUrl = 'http://reviewwa/public/Reviews?page=2';
@@ -180,8 +201,7 @@ $(document).ready(function () {
                         var data = response.data;
                         var content = '';
                         data.map((el) => {
-                            var date = new Date(el.created_at);
-                            var formatted_date = date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
+                            var formatedDate = parseDate(el.created_at);
                             content = content + '<div id="' + el.id + '" class="card mb-4 post">\n' +
                                 '            <div class="card-body post-content">\n' +
                                 '                <h2 class="card-title">' + el.title + '</h2>\n' +
@@ -194,7 +214,7 @@ $(document).ready(function () {
                                 '            </div>\n' +
                                 '            <div class="card-footer text-muted">\n' +
                                 '                <p class="float-left m-0">\n' +
-                                '                    дата публикации: ' + formatted_date + '\n' +
+                                '                    дата публикации: ' + formatedDate + '\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +
                                 '                    цифра\n' +
@@ -233,7 +253,7 @@ $(document).ready(function () {
         var id = el.parent().parent().attr('id');
         var like = el.siblings('.like-count');
         $.ajax({
-            url: 'like/' + id,
+            url: 'http://reviewwa/like/' + id,
             success: function (data) {
                 if (data.action == 'like') {
                     like.html(Number(like.html()) + 1);
@@ -247,6 +267,151 @@ $(document).ready(function () {
                 }
             }
         });
+    })
+
+    $('#send-comment').on('click', function (el) {
+        el.preventDefault();
+        var data = $('#comment-form textarea').val();
+        $.ajax({
+            url: '../comment/' + $('.post').attr('id') + '?_token=' + csrfToken,
+            method: 'post',
+            data: {content: data},
+            success: function (data) {
+                $('#comments').append('<div data-id="' + data.id + '" class="box-comment border-bottom bg-gray-light">\n' +
+                    '                            <!-- User image -->\n' +
+                    '                            <span >\n' +
+                    '                                <img class=" img-comment img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">\n' +
+                    '                                        <div class="float-right">\n' +
+                    '                                            <div>\n' +
+                    '                                            <li class="del-comment fas fa-trash"></li>\n' +
+                    '                                            </div>\n' +
+                    '                                            <div>\n' +
+                    '                                                <a class="float-right edit-comment">изменить</a>\n' +
+                    '                                            </div>\n' +
+                    '                                        </div>\n' +
+                    '                                   <p class="mb-1">' + data.name + '\n' +
+                    '                                    <span class="text-muted pull-right">' + data.created_at + '</span>\n' +
+                    '                                </p>\n' +
+                    '                            </span>\n' +
+                    '                            <div class="comment-text">\n' +
+                    '                                ' + data.content + '\n' +
+                    '\n' +
+                    '                            </div>\n' +
+                    '                            <!-- /.comment-text -->\n' +
+                    '                        </div>')
+            },
+            error: function (data) {
+                alert('ошибка');
+            }
+        });
+        $('#comment-form textarea').val('');
+    })
+    var commentPage = 'http://reviewwa/comments/1?page=2';
+    $('#more').on('click', function (el) {
+        el.preventDefault();
+        $.ajax({
+            url: commentPage,
+            success: function (data) {
+                data.data.forEach((data) => {
+                    var formatedDate = parseDate(data.created_at);
+                    $('#comments').append('<div class="box-comment border-bottom bg-gray-light">\n' +
+                        '                            <span>\n' +
+                        '                                <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">\n' +
+                        '                                <p class="mb-1">' + data.user.name + '\n' +
+                        '                                    <span class="text-muted pull-right">' + formatedDate + '</span>\n' +
+                        '                                </p>\n' +
+                        '                            </span>\n' +
+                        '                            <div class="comment-text">\n' +
+                        '                                ' + data.content + '\n' +
+                        '                            </div>\n' +
+                        '                        </div>')
+                });
+                if (data.next_page_url) {
+                    console.log('lopa');
+                    commentPage = data.next_page_url
+                } else {
+                    $('#more').remove();
+                }
+            },
+            error: function (data) {
+                alert('ошибка');
+            }
+        });
+    })
+
+    $('.del-comment').on('click', function () {
+        var el = $(this);
+        $.ajax({
+            url: '/delete/comment/' + el.parent().parent().parent().parent().data('id') + '?_token='
+            + csrfToken,
+            method: 'delete',
+            success: function () {
+                if (confirm('Вы уверены что хотите удалить коментарий?')) {
+                    el.parent().parent().parent().parent().remove();
+                }
+            },
+            error: function () {
+                alert('ошибка');
+            }
+        });
+    })
+
+    $('.textarea').on('input', function (el) {
+        $(this).height(0).height(this.scrollHeight);
+    })
+
+    $('.edit-comment').on('click', function (e) {
+        e.preventDefault();
+        var el = $(this);
+        $.fancybox.open({
+            src: '#edit-form',
+            type: 'inline',
+            opts: {
+                afterShow: function (instance, current) {
+                    $('#edit-form input').val(el.parent().parent().parent().parent().data('id'));
+                    $('#edit-form div textarea').val(el.parent().parent().parent().siblings('.comment-text').html())
+                }
+            }
+        });
+    })
+
+    $('#edit-btn').on('click', function (e) {
+        e.preventDefault();
+        var el = $(this);
+        $.ajax({
+            url: '/edit/comment/' + el.siblings('input').val() + '?_token=' + csrfToken,
+            method: 'put',
+            data: el.parent().serialize(),
+            success: function (data) {
+                $('#comments div[data-id=' + el.siblings('input').val() + '] .comment-text').html(data.content);
+            },
+            error: function () {
+                alert('ошибка');
+            }
+        })
+    });
+
+    $('.del-review').on('click', function () {
+        var reviewId = $(this).parent().parent().attr('id');
+        $.ajax({
+            url: '/delete/review/' + reviewId + '?_token=' + csrfToken,
+            method: 'delete',
+            success: function (data) {
+                if (confirm('Вы уверены что хотите удалить коментарий?')) {
+                    $('#' + reviewId + '.post').remove()
+                }
+
+            },
+            error: function (data) {
+                alert('ошибка');
+            }
+        })
+    })
+
+    $('.edit-review').on('click', function (el) {
+        el.preventDefault();
+        var id = $(this).parent().parent().parent().attr('id');
+        window.location = 'http://reviewwa/editReview/' + id;
     })
 });
 

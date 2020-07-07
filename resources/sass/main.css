@@ -36,3 +36,17 @@ img{
     width: 100% !important;
     height: auto !important;
 }
+
+.textarea {
+    resize: none;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    min-height: 40px;
+    line-height: 20px;
+}
+
+
+.img-comment{
+    width: 50px !important;
+}
