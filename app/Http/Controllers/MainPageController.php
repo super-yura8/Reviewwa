@@ -17,15 +17,15 @@ class MainPageController extends Controller
 
     public function getPage()
     {
-        $reviews = Review::with(['User' => function ($el) {
-            $el->select(['id', 'name']);
-        }])->paginate(10);
+        $reviews = Review::withCount(
+            ['Likes' => function($el) {$el->where('like', 1);},
+                'Comments'
+            ])->with(['User' => function($el) {$el->select('id','name');}])->paginate(10);
         return response()->json($reviews);
     }
 
     public function showReview($id)
     {
-
         $reviews = Review::find($id);
         $count = $reviews->comments()->count();
         $comments = $reviews->comments()->take(20)->get();

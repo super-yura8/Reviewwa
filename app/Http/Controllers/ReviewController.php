@@ -10,6 +10,13 @@ use App\Models\Likes;
 
 class ReviewController extends Controller
 {
+    /**
+     * create review
+     *
+     * @param ReviewFormRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function createReview(ReviewFormRequest $request)
     {
         $data = $request->all();
@@ -21,6 +28,12 @@ class ReviewController extends Controller
 
     }
 
+    /**
+     * create like function
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function like($id)
     {
         $data = Likes::where('review_id', $id)->where('user_id', Auth::id())->first();
@@ -40,17 +53,35 @@ class ReviewController extends Controller
         }
     }
 
+    /**
+     * delete review
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function delete($id)
     {
-        Review::find($id)->delete();
+        $review = Review::find($id);
+        $this->authorize('delete', $review);
+        $review->delete();
         return response()->json(['message' => 'success']);
 
     }
 
+    /**
+     * edit review
+     *
+     * @param ReviewFormRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function edit(ReviewFormRequest $request, $id)
     {
         $data = $request->all();
         $review = Review::find($id);
+        $this->authorize('edit', $review);
         $review->content = $data['content'];
         $review->title = $data['title'];
         $review->save();

@@ -169,6 +169,13 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     alert(data.message);
+                },
+                error: function (data) {
+                    var errors = data.responseJSON.errors.content;
+                    var error;
+                    for(error in errors) {
+                        alert(errors[error]);
+                    }
                 }
             })
         }
@@ -182,11 +189,20 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     alert(data.message);
+                },
+                error: function (data) {
+                    var errors = data.responseJSON.errors.content;
+                    var error;
+                    for(error in errors) {
+                        alert(errors[error]);
+                    }
                 }
             })
         }
 
     });
+
+    // reviews paginate function
     var height = $('#content').height();
     var pageUrl = 'http://reviewwa/public/Reviews?page=2';
     $(document).on('scroll', function () {
@@ -202,6 +218,18 @@ $(document).ready(function () {
                         var content = '';
                         data.map((el) => {
                             var formatedDate = parseDate(el.created_at);
+                            var footerData;
+                            if ($('#user').data('id') == el.user_id) {
+                                footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
+                                    '                    <i class="fas fa-trash"></i>\n' +
+                                    '                </p>' +
+                                    '<p class="float-right ml-1 mr-1 mb-0">\n' +
+                                    '                    <a href="#" class="edit-review">изменить</a>\n' +
+                                    '                </p>' +
+                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                            } else {
+                                footerData = '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>';
+                            }
                             content = content + '<div id="' + el.id + '" class="card mb-4 post">\n' +
                                 '            <div class="card-body post-content">\n' +
                                 '                <h2 class="card-title">' + el.title + '</h2>\n' +
@@ -212,23 +240,23 @@ $(document).ready(function () {
                                 '            </div>\n' +
                                 '            <div class="card-body open-all">\n' +
                                 '            </div>\n' +
-                                '            <div class="card-footer text-muted">\n' +
+                                '            <div class="card-footer text-muted footer">\n' +
                                 '                <p class="float-left m-0">\n' +
                                 '                    дата публикации: ' + formatedDate + '\n' +
                                 '                </p>\n' +
-                                '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-                                '                    цифра\n' +
+                                '                <p class="float-left ml-1 mr-1 mb-0 like-count">\n' +
+                                '                    '+ el.likes_count +'\n' +
                                 '                </p>\n' +
-                                '                <p class="float-left ml-1 mr-1 mb-0">\n' +
+                                '                <p class="float-left ml-1 mr-1 mb-0 like">\n' +
                                 '                    <i font class="far fa-heart" style="font-size: 1.4em;"></i>\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-                                '                    цифра\n' +
+                                '                    '+ el.comments_count +'\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-                                '                    <i class="far fa-comment-alt" style="font-size: 1.4em;"></i>\n' +
+                                '                <a href="/Reviews/'+ el.id +'" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>\n' +
                                 '                </p>\n' +
-                                '                <p class="float-right ml-1 mr-1 mb-0">' + el.user_id + '</p>\n' +
+                                '                '+ footerData +
                                 '            </div>\n' +
                                 '        </div>'
                         });
@@ -301,7 +329,11 @@ $(document).ready(function () {
                     '                        </div>')
             },
             error: function (data) {
-                alert('ошибка');
+                var errors = data.responseJSON.errors.content;
+                var error;
+                for(error in errors) {
+                    alert(errors[error]);
+                }
             }
         });
         $('#comment-form textarea').val('');
@@ -321,13 +353,10 @@ $(document).ready(function () {
                         '                                    <span class="text-muted pull-right">' + formatedDate + '</span>\n' +
                         '                                </p>\n' +
                         '                            </span>\n' +
-                        '                            <div class="comment-text">\n' +
-                        '                                ' + data.content + '\n' +
-                        '                            </div>\n' +
+                        '                            <div class="comment-text">\n'+ data.content + '\n' + '</div>\n' +
                         '                        </div>')
                 });
                 if (data.next_page_url) {
-                    console.log('lopa');
                     commentPage = data.next_page_url
                 } else {
                     $('#more').remove();
@@ -339,28 +368,29 @@ $(document).ready(function () {
         });
     })
 
-    $('.del-comment').on('click', function () {
+    $('#comments').delegate('.box-comment span div div .del-comment', 'click', function () {
         var el = $(this);
-        $.ajax({
-            url: '/delete/comment/' + el.parent().parent().parent().parent().data('id') + '?_token='
-            + csrfToken,
-            method: 'delete',
-            success: function () {
-                if (confirm('Вы уверены что хотите удалить коментарий?')) {
+        if (confirm('Вы уверены что хотите удалить коментарий?')) {
+            $.ajax({
+                url: '/delete/comment/' + el.parent().parent().parent().parent().data('id') + '?_token='
+                + csrfToken,
+                method: 'delete',
+                success: function () {
                     el.parent().parent().parent().parent().remove();
+                },
+                error: function () {
+                    alert('ошибка');
                 }
-            },
-            error: function () {
-                alert('ошибка');
-            }
-        });
+            });
+        }
+
     })
 
     $('.textarea').on('input', function (el) {
         $(this).height(0).height(this.scrollHeight);
     })
 
-    $('.edit-comment').on('click', function (e) {
+    $('#comments').delegate('.box-comment span div div .edit-comment', 'click', function (e) {
         e.preventDefault();
         var el = $(this);
         $.fancybox.open({
@@ -369,12 +399,13 @@ $(document).ready(function () {
             opts: {
                 afterShow: function (instance, current) {
                     $('#edit-form input').val(el.parent().parent().parent().parent().data('id'));
-                    $('#edit-form div textarea').val(el.parent().parent().parent().siblings('.comment-text').html())
+                    $('#edit-form div textarea').val(el.parent().parent().parent().siblings('.comment-text').html().replace(/ +/g, ' ').trim())
                 }
             }
         });
     })
 
+    // edit review
     $('#edit-btn').on('click', function (e) {
         e.preventDefault();
         var el = $(this);
@@ -385,30 +416,35 @@ $(document).ready(function () {
             success: function (data) {
                 $('#comments div[data-id=' + el.siblings('input').val() + '] .comment-text').html(data.content);
             },
-            error: function () {
-                alert('ошибка');
+            error: function (data) {
+                var errors = data.responseJSON.errors.content;
+                var error
+                for(error in errors) {
+                    alert(errors[error]);
+                }
             }
         })
     });
 
-    $('.del-review').on('click', function () {
+    $('#content').delegate('.post .footer .del-review','click', function () {
         var reviewId = $(this).parent().parent().attr('id');
-        $.ajax({
-            url: '/delete/review/' + reviewId + '?_token=' + csrfToken,
-            method: 'delete',
-            success: function (data) {
-                if (confirm('Вы уверены что хотите удалить коментарий?')) {
+        if (confirm('Вы уверены что хотите удалить обзор?')) {
+            $.ajax({
+                url: '/delete/review/' + reviewId + '?_token=' + csrfToken,
+                method: 'delete',
+                success: function (data) {
                     $('#' + reviewId + '.post').remove()
-                }
 
-            },
-            error: function (data) {
-                alert('ошибка');
-            }
-        })
+                },
+                error: function (data) {
+                    alert('ошибка');
+                }
+            })
+        }
+
     })
 
-    $('.edit-review').on('click', function (el) {
+    $('#content').delegate('.post .footer .edit-review','click', function (el) {
         el.preventDefault();
         var id = $(this).parent().parent().parent().attr('id');
         window.location = 'http://reviewwa/editReview/' + id;

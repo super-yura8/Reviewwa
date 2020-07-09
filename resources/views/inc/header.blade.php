@@ -37,6 +37,7 @@
                     <a class="dropdown-item" href="#">Настройки</a>
                     <a class="dropdown-item" href="#">Выйти</a>
                 </div>
+                <div id="user" class="d-inline" data-id="{{ auth()->id() }}">@if(auth()->check()){{ auth()->user()->name }}@endif</div>
             </div>
             </ul>
         </div>

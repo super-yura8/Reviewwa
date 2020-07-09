@@ -22,10 +22,10 @@
                     @endif
                 </p>
                 <p class="float-left ml-1 mr-1 mb-0">
-                    цифра
+                    {{ $review->comments()->count() }}
                 </p>
                 <p class="float-left ml-1 mr-1 mb-0">
-                    <i class="far fa-comment-alt" style="font-size: 1.4em;"></i>
+                    <a href="/Reviews/{{ $review->id }}" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>
                 </p>
                 @if(auth()->check() && $review->user->id == auth()->id())
                 <p class="float-right ml-1 mr-1 mb-0 del-review">
