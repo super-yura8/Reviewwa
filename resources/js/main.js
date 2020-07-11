@@ -213,13 +213,32 @@ $(document).ready(function () {
                 if (pageUrl) {
                     getData(pageUrl);
                     if (response) {
-                        pageUrl = response.next_page_url;
-                        var data = response.data;
+                        pageUrl = response.reviews.next_page_url;
+                        var data = response.reviews.data;
                         var content = '';
                         data.map((el) => {
                             var formatedDate = parseDate(el.created_at);
                             var footerData;
                             if ($('#user').data('id') == el.user_id) {
+                                footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
+                                    '                    <i class="fas fa-trash"></i>\n' +
+                                    '                </p>' +
+                                    '<p class="float-right ml-1 mr-1 mb-0">\n' +
+                                    '                    <a href="#" class="edit-review">изменить</a>\n' +
+                                    '                </p>' +
+                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                            } else if (data['canUpdate'] && !data['canDelete']) {
+                                footerData =
+                                    '<p class="float-right ml-1 mr-1 mb-0">\n' +
+                                    '                    <a href="#" class="edit-review">изменить</a>\n' +
+                                    '                </p>' +
+                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                            } else if (!data['canUpdate'] && data['canDelete']) {
+                                footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
+                                    '                    <i class="fas fa-trash"></i>\n' +
+                                    '                </p>' +
+                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                            } else if (data['canUpdate'] && data['canDelete']) {
                                 footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
                                     '                    <i class="fas fa-trash"></i>\n' +
                                     '                </p>' +
@@ -338,17 +357,49 @@ $(document).ready(function () {
         });
         $('#comment-form textarea').val('');
     })
-    var commentPage = 'http://reviewwa/comments/1?page=2';
+    var page ='http://reviewwa/comments/';
+    var commentPage = '?page=2';
     $('#more').on('click', function (el) {
         el.preventDefault();
+        var post = $('.post').attr('id');
         $.ajax({
-            url: commentPage,
-            success: function (data) {
-                data.data.forEach((data) => {
+            url: page + post + commentPage,
+            success: function (originData) {
+                originData.comments.data.forEach((data) => {
                     var formatedDate = parseDate(data.created_at);
+                    var commentAction = '';
+                    if (originData.canUpdate && originData.canDelete) {
+                        commentAction = '<div class="float-right">\n' +
+                            '                                    \n' +
+                            '                                            <div>\n' +
+                            '                                            <li class="del-comment float-right fas fa-trash"></li>\n' +
+                            '                                            </div>\n' +
+                            '                                                                                                                                    <div>\n' +
+                            '                                                <a class="float-right edit-comment">изменить</a>\n' +
+                            '                                            </div>\n' +
+                            '\n' +
+                            '                                                                    </div>'
+                    } else if (!originData.canUpdate && originData.canDelete) {
+                        commentAction = '<div class="float-right">\n' +
+                        '                                    \n' +
+                        '                                            <div>\n' +
+                        '                                            <li class="del-comment float-right fas fa-trash"></li>\n' +
+                        '                                            </div>\n' +
+                        '\n' +
+                        '                                                                    </div>';
+                    } else if (originData.canUpdate && !originData.canDelete) {
+                        commentAction = '<div class="float-right">\n' +
+                            '                                                                                                                                    <div>\n' +
+                            '                                                <a class="float-right edit-comment">изменить</a>\n' +
+                            '                                            </div>\n' +
+                            '\n' +
+                            '                                                                    </div>'
+                    }
+
                     $('#comments').append('<div class="box-comment border-bottom bg-gray-light">\n' +
                         '                            <span>\n' +
-                        '                                <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">\n' +
+                        '                                <img class="img-circle img-comment img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">\n' +
+                        commentAction +
                         '                                <p class="mb-1">' + data.user.name + '\n' +
                         '                                    <span class="text-muted pull-right">' + formatedDate + '</span>\n' +
                         '                                </p>\n' +
@@ -356,8 +407,8 @@ $(document).ready(function () {
                         '                            <div class="comment-text">\n'+ data.content + '\n' + '</div>\n' +
                         '                        </div>')
                 });
-                if (data.next_page_url) {
-                    commentPage = data.next_page_url
+                if (originData.next_page_url) {
+                    commentPage = originData.next_page_url
                 } else {
                     $('#more').remove();
                 }

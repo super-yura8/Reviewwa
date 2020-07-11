@@ -15,7 +15,6 @@ class ReviewController extends Controller
      *
      * @param ReviewFormRequest $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function createReview(ReviewFormRequest $request)
     {

@@ -27,13 +27,18 @@
                 <p class="float-left ml-1 mr-1 mb-0">
                     <a href="/Reviews/{{ $review->id }}" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>
                 </p>
-                @if(auth()->check() && $review->user->id == auth()->id())
-                <p class="float-right ml-1 mr-1 mb-0 del-review">
-                    <i class="fas fa-trash"></i>
-                </p>
-                <p class="float-right ml-1 mr-1 mb-0">
-                    <a href="#" class="edit-review">изменить</a>
-                </p>
+                @if(auth()->check())
+                    @if($review->user->id == auth()->id() || auth()->user()->hasPermissionTo('unpublish review'))
+                        <p class="float-right ml-1 mr-1 mb-0 del-review">
+                            <i class="fas fa-trash"></i>
+                        </p>
+                    @endif
+                        @if($review->user->id == auth()->id() || auth()->user()->hasPermissionTo('edit reviews'))
+                            <p class="float-right ml-1 mr-1 mb-0">
+                                <a href="#" class="edit-review">изменить</a>
+                            </p>
+                        @endif
+
                 @endif
                 <p class="float-right ml-1 mr-1 mb-0">{{ $review->user->name }}</p> {{--также надо добавить иконку--}}
             </div>
@@ -52,17 +57,20 @@
                             <span >
                                 <img class=" img-comment img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">
                                 @if(auth()->check())
-                                    @if(auth()->user()->comments->where('user_id', auth()->user()->id))
-                                        <div class="float-right">
+                                    <div class="float-right">
+                                    @if($comment->user_id === auth()->user()->id || auth()->user()->hasPermissionTo('unpublish comment'))
+
                                             <div>
-                                            <li class="del-comment fas fa-trash"></li>
+                                            <li class="del-comment float-right fas fa-trash"></li>
                                             </div>
+                                            @endif
+                                            @if($comment->user_id === auth()->user()->id || auth()->user()->hasPermissionTo('edit comments'))
                                             <div>
                                                 <a class="float-right edit-comment">изменить</a>
                                             </div>
-                                        </div>
 
-                                    @endif
+                                            @endif
+                        </div>
                                 @endif
                                 <p class="mb-1">{{ $comment->user->name }}
                                     <span class="text-muted pull-right">{{ date('j-m-Y', strtotime($comment->created_at)) }}</span>

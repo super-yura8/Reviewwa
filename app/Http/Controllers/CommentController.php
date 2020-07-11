@@ -32,7 +32,9 @@ class CommentController extends Controller
         $comments = Comment::with(['user' => function($query){
             $query->select(['id','name']);
         }])->select()->where('review_id',$id)->paginate(20);
-        return response()->json($comments);
+        return response()->json(['comments' => $comments,
+            'canUpdate' => auth()->user()->hasPermissionTo('edit comments'),
+            'canDelete' => auth()->user()->hasPermissionTo('unpublish comment')]);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\File;
 use App\Model\Review;
 use App\Http\Controllers\CommentController;
+use App\User;
 use Illuminate\Http\Request;
 
 class MainPageController extends Controller
@@ -20,8 +21,10 @@ class MainPageController extends Controller
         $reviews = Review::withCount(
             ['Likes' => function($el) {$el->where('like', 1);},
                 'Comments'
-            ])->with(['User' => function($el) {$el->select('id','name');}])->paginate(10);
-        return response()->json($reviews);
+            ])->with(['User'])->paginate(10);
+        return response()->json(['reviews' => $reviews,
+            'canUpdate' => auth()->user()->hasPermissionTo('edit reviews'),
+            'canDelete' => auth()->user()->hasPermissionTo('unpublish review')]);
     }
 
     public function showReview($id)

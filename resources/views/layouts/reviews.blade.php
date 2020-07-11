@@ -15,9 +15,9 @@
                 <td>{{ $review->id }}</td>
                 <td>{{ $review->title }}</td>
                 <td>{{ $review->user->name }}</td>
+                <td>{{ $review->likes()->where('like', 1)->count() }}</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $review->comments()->count() }}</td>
                 <td>{{ date('d-m-Y', strtotime($review->created_at))}}</td>
             </tr>
         @endforeach
