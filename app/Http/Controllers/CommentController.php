@@ -61,7 +61,7 @@ class CommentController extends Controller
      */
     public function delete($id)
     {
-        $comment = Comment::find($id);
+        $comment = Comment::findOrFail($id);
         $this->authorize('delete', $comment);
         $comment->delete();
         return response()->json(['message' => 'success']);
@@ -78,7 +78,7 @@ class CommentController extends Controller
     public function edit(CommentFormRequest $request, $id)
     {
         $data = $request->all();
-        $comment = Comment::find($id);
+        $comment = Comment::findOrFail($id);
         $this->authorize('edit', $comment);
         $comment->content = $data['content'];
         $comment->save();

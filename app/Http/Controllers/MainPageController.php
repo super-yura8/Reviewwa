@@ -29,7 +29,7 @@ class MainPageController extends Controller
 
     public function showReview($id)
     {
-        $reviews = Review::find($id);
+        $reviews = Review::findOrFail($id);
         $count = $reviews->comments()->count();
         $comments = $reviews->comments()->take(20)->get();
         $reviews = [$reviews];
@@ -43,7 +43,7 @@ class MainPageController extends Controller
 
     public function showEditor($id)
     {
-        $review = Review::find($id);
+        $review = Review::findOrFail($id);
         $data = ['content' => $review->content, 'title' => $review->title, 'id' => $id];
         return view('layouts.addReview', compact('data'));
     }

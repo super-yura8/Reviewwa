@@ -61,7 +61,7 @@ class ReviewController extends Controller
      */
     public function delete($id)
     {
-        $review = Review::find($id);
+        $review = Review::findOrFail($id);
         $this->authorize('delete', $review);
         $review->delete();
         return response()->json(['message' => 'success']);
@@ -79,7 +79,7 @@ class ReviewController extends Controller
     public function edit(ReviewFormRequest $request, $id)
     {
         $data = $request->all();
-        $review = Review::find($id);
+        $review = Review::findOrFail($id);
         $this->authorize('edit', $review);
         $review->content = $data['content'];
         $review->title = $data['title'];

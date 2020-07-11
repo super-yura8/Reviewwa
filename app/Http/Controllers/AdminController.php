@@ -52,7 +52,7 @@ class AdminController extends Controller
     public function banUser(BanUserFormRequest $request)
     {
         $data = $request->all();
-        $user = User::find($data['id']);
+        $user = User::findOrFail($data['id']);
         $this->authorize('canBan', $user);
         $date = new \DateTime($data['date']);
         $date = $date->format('Y-m-d');
@@ -71,7 +71,7 @@ class AdminController extends Controller
      */
     public function unbanUser($id)
     {
-        if ($user = User::find($id)) {
+        if ($user = User::findOrFail($id)) {
             $this->authorize('canUnban', $user);
             if ($user->is_ban) {
                 $user->is_ban = 0;
@@ -93,7 +93,7 @@ class AdminController extends Controller
     public function updateUser(ChangeFormRequest $request, $id)
     {
         $data = $request->all();
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $this->authorize('canChange', $user);
         $user->name = $data['name'];
         $user->email = $data['email'];
