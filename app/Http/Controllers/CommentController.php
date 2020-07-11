@@ -17,7 +17,7 @@ class CommentController extends Controller
      */
     public function showFirstComments($id)
     {
-        $comments = Comment::select()->where('review_id',$id);
+        $comments = Comment::select()->orderBy('created_at','desc')->where('review_id',$id);
         return ['comments' => $comments->take(20)->get(), 'count' => $comments->count()];
     }
 
@@ -31,7 +31,7 @@ class CommentController extends Controller
     {
         $comments = Comment::with(['user' => function($query){
             $query->select(['id','name']);
-        }])->select()->where('review_id',$id)->paginate(20);
+        }])->select()->orderBy('created_at','desc')->where('review_id',$id)->paginate(20);
         return response()->json(['comments' => $comments,
             'canUpdate' => auth()->user()->hasPermissionTo('edit comments'),
             'canDelete' => auth()->user()->hasPermissionTo('unpublish comment')]);

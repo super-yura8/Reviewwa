@@ -12,13 +12,13 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        $reviews = Review::all()->take(10);
+        $reviews = Review::all()->sortByDesc('created_at')->take(10);
         return view('layouts.mainPage', compact('reviews'));
     }
 
     public function getPage()
     {
-        $reviews = Review::withCount(
+        $reviews = Review::select()->orderBy('created_at','desc')->withCount(
             ['Likes' => function($el) {$el->where('like', 1);},
                 'Comments'
             ])->with(['User'])->paginate(10);
@@ -31,7 +31,7 @@ class MainPageController extends Controller
     {
         $reviews = Review::findOrFail($id);
         $count = $reviews->comments()->count();
-        $comments = $reviews->comments()->take(20)->get();
+        $comments = $reviews->comments()->orderBy('created_at','desc')->take(20)->get();
         $reviews = [$reviews];
         return view('layouts.mainPage', compact('reviews', 'comments', 'count'));
     }

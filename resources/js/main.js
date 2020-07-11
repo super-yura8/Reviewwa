@@ -396,7 +396,7 @@ $(document).ready(function () {
                             '                                                                    </div>'
                     }
 
-                    $('#comments').append('<div class="box-comment border-bottom bg-gray-light">\n' +
+                    $('#comments').append('<div data-id="'+ data.id +'" class="box-comment border-bottom bg-gray-light">\n' +
                         '                            <span>\n' +
                         '                                <img class="img-circle img-comment img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">\n' +
                         commentAction +
