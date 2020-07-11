@@ -17,8 +17,13 @@ Route::post('uploader/review/upload', 'ReviewController@createReview')->name('re
 Route::get('/Reviews', 'MainPageController@getPage')->name('getPage');
 Route::get('/Reviews/{id}', 'MainPageController@showReview')->name('review')->where('id', '^[0-9]+$');
 Route::get('/comments/{id}', 'CommentController@getComments');
+Route::post('/auth', 'AuthController@auth');
+Route::post('/reg','AuthController@register');
 Route::middleware('auth')->group(function () {
 
+    Route::get('/user',function () {
+        return view('layouts.profile');
+    });
     Route::get('/addReview', 'MainPageController@showReviewEditor');
     Route::get('/editReview/{id}', 'MainPageController@showEditor')->where('id', '^[0-9]+$');
     Route::get('/like/{id}', 'ReviewController@like')->name('like')->where('id', '^[0-9]+$');

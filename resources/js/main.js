@@ -500,5 +500,18 @@ $(document).ready(function () {
         var id = $(this).parent().parent().parent().attr('id');
         window.location = 'http://reviewwa/editReview/' + id;
     })
+
+    $('.change-auth').on('click', function (el) {
+        el.preventDefault();
+        if ($(this).attr('id') === 'reg') {
+            var form = $('#form-reg');
+            $('#form-auth').addClass('d-none');
+            form.removeClass('d-none')
+        } else if ($(this).attr('id') === 'auth') {
+            var form = $('#form-auth');
+            $('#form-reg').addClass('d-none');
+            form.removeClass('d-none')
+        }
+    })
 });
 
