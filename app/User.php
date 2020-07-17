@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Subscribe;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -67,5 +68,15 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany('App\Models\Comment');
+    }
+
+    public function subscribers()
+    {
+        return $this->hasMany('App\Models\Subscribe');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Models\Subscribe');
     }
 }

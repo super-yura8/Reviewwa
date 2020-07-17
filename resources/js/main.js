@@ -173,13 +173,13 @@ $(document).ready(function () {
                 error: function (data) {
                     var errors = data.responseJSON.errors.content;
                     var error;
-                    for(error in errors) {
+                    for (error in errors) {
                         alert(errors[error]);
                     }
                 }
             })
         }
-        else{
+        else {
             $.ajax({
                 url: 'uploader/review/upload?_token=' + csrfToken,
                 method: 'post',
@@ -193,7 +193,7 @@ $(document).ready(function () {
                 error: function (data) {
                     var errors = data.responseJSON.errors.content;
                     var error;
-                    for(error in errors) {
+                    for (error in errors) {
                         alert(errors[error]);
                     }
                 }
@@ -226,18 +226,18 @@ $(document).ready(function () {
                                     '<p class="float-right ml-1 mr-1 mb-0">\n' +
                                     '                    <a href="#" class="edit-review">изменить</a>\n' +
                                     '                </p>' +
-                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                                    '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
                             } else if (data['canUpdate'] && !data['canDelete']) {
                                 footerData =
                                     '<p class="float-right ml-1 mr-1 mb-0">\n' +
                                     '                    <a href="#" class="edit-review">изменить</a>\n' +
                                     '                </p>' +
-                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                                    '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
                             } else if (!data['canUpdate'] && data['canDelete']) {
                                 footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
                                     '                    <i class="fas fa-trash"></i>\n' +
                                     '                </p>' +
-                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                                    '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
                             } else if (data['canUpdate'] && data['canDelete']) {
                                 footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
                                     '                    <i class="fas fa-trash"></i>\n' +
@@ -245,9 +245,9 @@ $(document).ready(function () {
                                     '<p class="float-right ml-1 mr-1 mb-0">\n' +
                                     '                    <a href="#" class="edit-review">изменить</a>\n' +
                                     '                </p>' +
-                                    '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>'
+                                    '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
                             } else {
-                                footerData = '<p class="float-right ml-1 mr-1 mb-0">'+ el.user.name +'</p>';
+                                footerData = '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>';
                             }
                             content = content + '<div id="' + el.id + '" class="card mb-4 post">\n' +
                                 '            <div class="card-body post-content">\n' +
@@ -264,18 +264,18 @@ $(document).ready(function () {
                                 '                    дата публикации: ' + formatedDate + '\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0 like-count">\n' +
-                                '                    '+ el.likes_count +'\n' +
+                                '                    ' + el.likes_count + '\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0 like">\n' +
                                 '                    <i font class="far fa-heart" style="font-size: 1.4em;"></i>\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-                                '                    '+ el.comments_count +'\n' +
+                                '                    ' + el.comments_count + '\n' +
                                 '                </p>\n' +
                                 '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-                                '                <a href="/Reviews/'+ el.id +'" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>\n' +
+                                '                <a href="/Reviews/' + el.id + '" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>\n' +
                                 '                </p>\n' +
-                                '                '+ footerData +
+                                '                ' + footerData +
                                 '            </div>\n' +
                                 '        </div>'
                         });
@@ -350,14 +350,14 @@ $(document).ready(function () {
             error: function (data) {
                 var errors = data.responseJSON.errors.content;
                 var error;
-                for(error in errors) {
+                for (error in errors) {
                     alert(errors[error]);
                 }
             }
         });
         $('#comment-form textarea').val('');
     })
-    var page ='http://reviewwa/comments/';
+    var page = 'http://reviewwa/comments/';
     var commentPage = '?page=2';
     $('#more').on('click', function (el) {
         el.preventDefault();
@@ -381,12 +381,12 @@ $(document).ready(function () {
                             '                                                                    </div>'
                     } else if (!originData.canUpdate && originData.canDelete) {
                         commentAction = '<div class="float-right">\n' +
-                        '                                    \n' +
-                        '                                            <div>\n' +
-                        '                                            <li class="del-comment float-right fas fa-trash"></li>\n' +
-                        '                                            </div>\n' +
-                        '\n' +
-                        '                                                                    </div>';
+                            '                                    \n' +
+                            '                                            <div>\n' +
+                            '                                            <li class="del-comment float-right fas fa-trash"></li>\n' +
+                            '                                            </div>\n' +
+                            '\n' +
+                            '                                                                    </div>';
                     } else if (originData.canUpdate && !originData.canDelete) {
                         commentAction = '<div class="float-right">\n' +
                             '                                                                                                                                    <div>\n' +
@@ -396,7 +396,7 @@ $(document).ready(function () {
                             '                                                                    </div>'
                     }
 
-                    $('#comments').append('<div data-id="'+ data.id +'" class="box-comment border-bottom bg-gray-light">\n' +
+                    $('#comments').append('<div data-id="' + data.id + '" class="box-comment border-bottom bg-gray-light">\n' +
                         '                            <span>\n' +
                         '                                <img class="img-circle img-comment img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">\n' +
                         commentAction +
@@ -404,7 +404,7 @@ $(document).ready(function () {
                         '                                    <span class="text-muted pull-right">' + formatedDate + '</span>\n' +
                         '                                </p>\n' +
                         '                            </span>\n' +
-                        '                            <div class="comment-text">\n'+ data.content + '\n' + '</div>\n' +
+                        '                            <div class="comment-text">\n' + data.content + '\n' + '</div>\n' +
                         '                        </div>')
                 });
                 if (originData.next_page_url) {
@@ -469,15 +469,15 @@ $(document).ready(function () {
             },
             error: function (data) {
                 var errors = data.responseJSON.errors.content;
-                var error
-                for(error in errors) {
+                var error;
+                for (error in errors) {
                     alert(errors[error]);
                 }
             }
         })
     });
 
-    $('#content').delegate('.post .footer .del-review','click', function () {
+    $('#content').delegate('.post .footer .del-review', 'click', function () {
         var reviewId = $(this).parent().parent().attr('id');
         if (confirm('Вы уверены что хотите удалить обзор?')) {
             $.ajax({
@@ -495,7 +495,7 @@ $(document).ready(function () {
 
     })
 
-    $('#content').delegate('.post .footer .edit-review','click', function (el) {
+    $('#content').delegate('.post .footer .edit-review', 'click', function (el) {
         el.preventDefault();
         var id = $(this).parent().parent().parent().attr('id');
         window.location = 'http://reviewwa/editReview/' + id;
@@ -512,6 +512,149 @@ $(document).ready(function () {
             $('#form-reg').addClass('d-none');
             form.removeClass('d-none')
         }
+    })
+    var userReviewPage = '/user/reviews/' + $('#user').data('id') + '?page=2';
+    $('#user-func-content').delegate('#showMoreReviews','click', function (el) {
+        var content = '';
+        if (userReviewPage) {
+            el.preventDefault();
+            var user = $('#user').html();
+
+            $.ajax({
+                url: userReviewPage,
+                success: function (data) {
+                    data.data.forEach(el => {
+                        console.log(el);
+                        var formatedDate = parseDate(el.created_at);
+                        content = content + '<div id="' + el.id + '" class="card mb-4 post">\n' +
+                            '            <div class="card-body post-content">\n' +
+                            '                <h2 class="card-title">' + el.title + '</h2>\n' +
+                            '                <div class="card-text">\n' +
+                            '                    ' + el.content + '\n' +
+                            '                </div>\n' +
+                            '            </div>\n' +
+                            '            <div class="card-body open-all">\n' +
+                            '            </div>\n' +
+                            '            <div class="card-footer text-muted footer">\n' +
+                            '                <p class="float-left m-0">\n' +
+                            '                    ' + formatedDate + '\n' +
+                            '                </p>\n' +
+                            '                <p class="float-left ml-1 mr-1 mb-0 like-count">' + el.likes_count + '</p>\n' +
+                            '                <p class="float-left ml-1 mr-1 mb-0 like">\n' +
+                            '                                            <i font="" class="far fa-heart" style="font-size: 1.4em;"></i>\n' +
+                            '                                    </p>\n' +
+                            '                <p class="float-left ml-1 mr-1 mb-0">\n' +
+                            '                    ' + el.comments_count + '\n' +
+                            '                </p>\n' +
+                            '                <p class="float-left ml-1 mr-1 mb-0">\n' +
+                            '                    <a href="/Reviews/' + el.id + '" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>\n' +
+                            '                </p>\n' +
+                            '                                                            <p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
+                            '                            <i class="fas fa-trash"></i>\n' +
+                            '                        </p>\n' +
+                            '                                                                        <p class="float-right ml-1 mr-1 mb-0">\n' +
+                            '                                <a href="#" class="edit-review">изменить</a>\n' +
+                            '                            </p>\n' +
+                            '                        \n' +
+                            '                                <p class="float-right ml-1 mr-1 mb-0">' + user + '</p> \n' +
+                            '            </div>\n' +
+                            '        </div>';
+                        userReviewPage = data.next_page_url;
+                        if (!userReviewPage) {
+                            $('#showMoreReviews').remove();
+                        }
+                    });
+                    $('#content').append(content);
+                }
+            })
+        }
+    })
+
+    $('.user-func-list li a').on('click', function (el) {
+        el.preventDefault();
+        var link = $(this).attr('href');
+        $(this).parent().siblings('.active').removeClass('active');
+        $(this).parent().addClass('active');
+        $.ajax({
+            url: '/' + link,
+            success: function (data) {
+                $('#user-func-content').html(data);
+            },
+            error: function (data) {
+                console.log('ошибка')
+            }
+        })
+    })
+
+    $('#user-func-content').delegate('#changePass #changePassBtn', 'click', function (el) {
+        el.preventDefault();
+        var formData = $('#changePass').serialize();
+        console.log(formData);
+        $.ajax({
+            url: '/user/changePass',
+            method: 'put',
+            data: formData,
+            success: function (data) {
+                alert('Пароль успешно изменен!');
+            },
+            error: function (data) {
+                var errors = data.responseJSON.errors;
+                var error;
+                for (error in errors) {
+                    alert(errors[error]);
+                }
+            }
+        })
+    })
+    var userPageNumber = 2;
+
+    $('#user-func-content').delegate('#showMoreUsers', 'click', function (el) {
+        el.preventDefault();
+        if (userPageNumber) {
+            var usersPageUrl = '/user/' + $('#user').data('id') + '/' + $('#showMoreUsers').data('type') + '?page=';
+            $.ajax({
+                url: usersPageUrl + userPageNumber,
+                success: function (data) {
+                    if(data == false) {
+                        userPageNumber = false;
+                        usersPageUrl = false;
+                    } else {
+                        console.log($(data));
+                        $('#showMoreUsers').remove();
+                        $('#user-func-content').append($(data)[0]);
+                        userPageNumber++;
+                    }
+                },
+            })
+        }
+    });
+
+    $('#subscribe-on-user').on('click', function (el) {
+        el.preventDefault();
+        var link = $(this).attr('href');
+        el = $(this);
+        var id = el.data('id');
+            $.ajax({
+            url: link,
+            success: function (data) {
+                alert(data.message);
+                console.log($(this));
+                if (el.hasClass('btn-success')) {
+                    el.removeClass('btn-success');
+                    el.html('Unsubscribe');
+                    el.attr('href','/unsubscribe/user/'+id);
+                    el.addClass('btn-danger');
+                } else {
+                    el.removeClass('btn-danger');
+                    el.html('Subscribe');
+                    el.attr('href','/subscribe/user/'+id);
+                    el.addClass('btn-success');
+                }
+            },
+            error: function (data) {
+                alert(data.message);
+            }
+        })
     })
 });
 

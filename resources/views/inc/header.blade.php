@@ -34,8 +34,8 @@
                 </a>
                 @if(auth()->check())
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Аккаунт</a>
-                    <a class="dropdown-item" href="#">Выйти</a>
+                    <a class="dropdown-item" href="/user">Аккаунт</a>
+                    <a class="dropdown-item" href="/logout">Выйти</a>
                 </div>
                 @endif
                 <div id="user" class="d-inline" data-id="{{ auth()->id() }}">@if(auth()->check()){{ auth()->user()->name }}@endif</div>

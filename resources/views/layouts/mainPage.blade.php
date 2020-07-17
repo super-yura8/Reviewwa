@@ -1,5 +1,6 @@
 @extends('template')
 @section('content')
+    {{ auth()->user()->subscriptions }}
     <div class="container">
         <div class="row">
             <div class="col-md-8">
