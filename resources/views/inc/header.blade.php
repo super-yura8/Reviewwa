@@ -4,7 +4,9 @@
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
             <a href="addReview" class="btn btn-success text-monospace text-white mr-5">Добавить обзор</a>
             <div class="input-group w-25">
-                <input type="text" id="search-hide" class="form-control" placeholder="Поиск" style="display: none">
+                <form action="#" class="w-100" id="find">
+                    <input type="text" id="search-hide" class="form-control" placeholder="Поиск" style="display: none">
+                </form>
             </div>
             <a id="search-toggle" class="ml-1 float-right" href="#search-hide">
                     <span class="input-group-btn">

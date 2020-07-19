@@ -24,7 +24,7 @@ Route::get('/user/profile/reviews/{id}', 'ReviewController@usersReviews')->where
 Route::get('/user/{id}/follower', 'UserMenuController@followers');
 Route::get('/user/{id}/subscriptions', 'UserMenuController@subscriptions');
 Route::get('/user/{id}','UserMenuController@userById')->where('id', '^[0-9]+$');
-
+Route::get('/find/{find}','FindController@find')->where('find','.*');
 Route::middleware('auth')->group(function () {
     Route::get('subscribe/user/{id}', 'SubscribeController@subscribe')->where('id', '^[0-9]+$');
     Route::get('unsubscribe/user/{id}', 'SubscribeController@unsubscribe')->where('id', '^[0-9]+$');
@@ -61,3 +61,4 @@ Route::name('admin.')->prefix('admin')->middleware('auth', 'role:super-admin|adm
     Route::get('/unban/user/{id}', 'AdminController@unbanUser')->name('unbanUser')->where('id', '^[0-9]+$');
     Route::put('/update/user/{id}', 'AdminController@updateUser')->name('updateUser')->where('id', '^[0-9]+$');
 });
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

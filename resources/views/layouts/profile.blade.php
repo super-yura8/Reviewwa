@@ -62,9 +62,6 @@
             <div class="profile-content" id="user-func-content">
                 @if(!auth()->check() || auth()->check() && auth()->id() == $user->id)
                     @include('inc.post')
-                    @if($count>10)
-                        <a href="#" id="showMoreReviews" class="w-100 btn btn-light">Показать еще</a>
-                    @endif
                 @endif
             </div>
         </div>

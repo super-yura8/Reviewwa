@@ -12,19 +12,8 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        $reviews = Review::all()->sortByDesc('created_at')->take(10);
+        $reviews = Review::paginate(10);
         return view('layouts.mainPage', compact('reviews'));
-    }
-
-    public function getPage()
-    {
-        $reviews = Review::select()->orderBy('created_at','desc')->withCount(
-            ['Likes' => function($el) {$el->where('like', 1);},
-                'Comments'
-            ])->with(['User'])->paginate(10);
-        return response()->json(['reviews' => $reviews,
-            'canUpdate' => auth()->user()->hasPermissionTo('edit reviews'),
-            'canDelete' => auth()->user()->hasPermissionTo('unpublish review')]);
     }
 
     public function showReview($id)

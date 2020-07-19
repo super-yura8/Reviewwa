@@ -15,7 +15,7 @@ class UserMenuController extends Controller
             $user = auth()->user();
         }
         $allReviews = Review::where('user_id', auth()->id());
-        $reviews = $allReviews->take(10)->get();
+        $reviews = $allReviews->paginate(10);
         $count = $allReviews->count();
         return view('layouts.profile', compact('reviews', 'count', 'user'));
     }
