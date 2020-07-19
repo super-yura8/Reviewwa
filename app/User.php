@@ -2,10 +2,7 @@
 
 namespace App;
 
-use App\Models\Subscribe;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -71,11 +68,6 @@ class User extends Authenticatable
     }
 
     public function subscribers()
-    {
-        return $this->hasMany('App\Models\Subscribe');
-    }
-
-    public function subscriptions()
     {
         return $this->hasMany('App\Models\Subscribe');
     }

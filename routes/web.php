@@ -26,6 +26,7 @@ Route::get('/user/{id}/subscriptions', 'UserMenuController@subscriptions');
 Route::get('/user/{id}','UserMenuController@userById')->where('id', '^[0-9]+$');
 Route::get('/find/{find}','FindController@find')->where('find','.*');
 Route::middleware('auth')->group(function () {
+    Route::get('/tracked', 'MainPageController@showTracked');
     Route::get('subscribe/user/{id}', 'SubscribeController@subscribe')->where('id', '^[0-9]+$');
     Route::get('unsubscribe/user/{id}', 'SubscribeController@unsubscribe')->where('id', '^[0-9]+$');
     Route::get('/user/changePassForm', 'UserMenuController@changePass');

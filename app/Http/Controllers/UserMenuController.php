@@ -11,15 +11,12 @@ class UserMenuController extends Controller
 {
     public function index()
     {
-        if (auth()->check()) {
-            $user = auth()->user();
-        }
+        $user = auth()->user();
         $allReviews = Review::where('user_id', auth()->id());
         $reviews = $allReviews->paginate(10);
         $count = $allReviews->count();
         return view('layouts.profile', compact('reviews', 'count', 'user'));
     }
-
     public function userById($id)
     {
         $user = User::findOrFail($id);

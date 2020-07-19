@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\File;
 use App\Model\Review;
 use App\Http\Controllers\CommentController;
+use App\Models\Subscribe;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -35,5 +36,12 @@ class MainPageController extends Controller
         $review = Review::findOrFail($id);
         $data = ['content' => $review->content, 'title' => $review->title, 'id' => $id];
         return view('layouts.addReview', compact('data'));
+    }
+
+    public function showTracked()
+    {
+        $users = array_keys(Subscribe::where('user_id', auth()->id())->get()->groupBy('subscriber_id')->toArray());
+        $reviews = Review::whereIn('user_id', $users)->paginate(10);
+        return view('layouts.mainPage', compact('reviews'));
     }
 }

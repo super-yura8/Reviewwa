@@ -580,16 +580,15 @@ $(document).ready(function () {
         $.ajax({
             url: link,
             success: function (data) {
-                alert(data.message);
                 console.log($(this));
                 if (el.hasClass('btn-success')) {
                     el.removeClass('btn-success');
-                    el.html('Unsubscribe');
+                    el.html('отписаться');
                     el.attr('href', '/unsubscribe/user/' + id);
                     el.addClass('btn-danger');
                 } else {
                     el.removeClass('btn-danger');
-                    el.html('Subscribe');
+                    el.html('Подписаться');
                     el.attr('href', '/subscribe/user/' + id);
                     el.addClass('btn-success');
                 }
@@ -614,9 +613,14 @@ $(document).ready(function () {
                 $('.infinite-more-link').remove()
             }
             else{
+                data.each((el) => {
+                    if($(data[el]).find('.post-content').outerHeight() === 700) {
+                        $(data[el]).find('.open-all').append('<a class="open-rev" href="#">' +
+                            'Читать далее</a>')
+                    }
+                });
                 link = link.split('=');
                 link[1] = parseInt(link[1]) + 1;
-                console.log(link);
                 link = link.join('=');
                 $('.infinite-more-link').attr('href', link);
             }

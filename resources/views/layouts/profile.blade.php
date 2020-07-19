@@ -20,9 +20,9 @@
                 <div class="profile-userbuttons">
                     @if(auth()->check() && auth()->id() != $user->id)
                         @if(!auth()->user()->subscribers->where('subscriber_id', $user->id)->first())
-                            <a id="subscribe-on-user" data-id="{{ $user->id }}" href="/subscribe/user/{{ $user->id }}" class="btn btn-success btn-sm">Follow</a>
+                            <a id="subscribe-on-user" data-id="{{ $user->id }}" href="/subscribe/user/{{ $user->id }}" class="btn btn-success btn-sm">Подписаться</a>
                         @else
-                            <a id="subscribe-on-user" href="/unsubscribe/user/{{ $user->id }}" class="btn btn-danger btn-sm">Unsubscribe</a>
+                            <a id="subscribe-on-user" href="/unsubscribe/user/{{ $user->id }}" class="btn btn-danger btn-sm">Отписаться</a>
                         @endif
                     @endif
                 </div>
@@ -30,12 +30,12 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav list-group user-func-list">
-                        @if(!auth()->check() || auth()->check() && auth()->id() == $user->id)
                         <li class="active">
                             <a href="user/profile/reviews/{{ $user->id }}">
                                 <i class="glyphicon glyphicon-home"></i>
                                 Обзоры </a>
                         </li>
+                            @if(!auth()->check() || auth()->check() && auth()->id() == $user->id)
                             <li>
                                 <a href="user/changePassForm">
                                     <i class="glyphicon glyphicon-user"></i>

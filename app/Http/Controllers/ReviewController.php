@@ -99,8 +99,8 @@ class ReviewController extends Controller
 
     public function usersReviews($id)
     {
-        $allReviews = Review::where('user_id', auth()->id());
-        $reviews = $allReviews->take(10)->get();
+        $allReviews = Review::where('user_id', $id);
+        $reviews = $allReviews->paginate(10);
         $count = $allReviews->count();
         return view('layouts.usersReviews', compact('reviews', 'count'));
     }

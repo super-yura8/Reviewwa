@@ -40,7 +40,7 @@
                         @endif
 
                 @endif
-                <p class="float-right ml-1 mr-1 mb-0">{{ $review->user->name }}</p> {{--также надо добавить иконку--}}
+                <a href="/user/{{$review->user->id}}" class="float-right ml-1 mr-1 mb-0">{{ $review->user->name }}</a> {{--также надо добавить иконку--}}
             </div>
         </div>
     @endforeach
