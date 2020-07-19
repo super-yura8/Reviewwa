@@ -19,7 +19,8 @@ class SubscribeController extends Controller
         }
     }
 
-    public function unsubscribe($id) {
+    public function unsubscribe($id)
+    {
         $user = User::find($id);
         if ($user != null && $id != auth()->id() && Subscribe::where('subscriber_id', $id)->first() != null) {
             Subscribe::where('subscriber_id', $id)->delete();

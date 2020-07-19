@@ -24,7 +24,6 @@ class ReviewController extends Controller
             'success' => 'true',
             'message' => 'Review created'
         ]);
-
     }
 
     /**
@@ -65,7 +64,6 @@ class ReviewController extends Controller
         $this->authorize('delete', $review);
         $review->delete();
         return response()->json(['message' => 'success']);
-
     }
 
     /**
@@ -87,19 +85,23 @@ class ReviewController extends Controller
         return response()->json(['message' => 'success']);
     }
 
-    public function getReviewByUser($id) {
+    public function getReviewByUser($id)
+    {
         $review = $reviews = Review::where('user_id', $id)->withCount(
-            ['Likes' => function($el) {$el->where('like', 1);},
+            ['Likes' => function ($el) {
+                $el->where('like', 1);
+            },
                 'Comments'
-            ])->paginate(10);
+            ]
+        )->paginate(10);
         return response()->json($review);
     }
 
-    public function usersReviews($id) {
+    public function usersReviews($id)
+    {
         $allReviews = Review::where('user_id', auth()->id());
         $reviews = $allReviews->take(10)->get();
         $count = $allReviews->count();
-        return view('layouts.usersReviews', compact('reviews','count'));
+        return view('layouts.usersReviews', compact('reviews', 'count'));
     }
-
 }

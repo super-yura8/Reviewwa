@@ -15,8 +15,7 @@ class IsBan
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->is_ban)
-        {
+        if (auth()->check() && auth()->user()->is_ban) {
             auth()->logout();
             return redirect()->route('login')->withMessage('Вы забанены');
         }

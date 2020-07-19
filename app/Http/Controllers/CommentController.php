@@ -6,7 +6,6 @@ use App\Http\Requests\CommentFormRequest;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
-
 class CommentController extends Controller
 {
     /**
@@ -17,7 +16,7 @@ class CommentController extends Controller
      */
     public function showFirstComments($id)
     {
-        $comments = Comment::select()->orderBy('created_at','desc')->where('review_id',$id);
+        $comments = Comment::select()->orderBy('created_at', 'desc')->where('review_id', $id);
         return ['comments' => $comments->take(20)->get(), 'count' => $comments->count()];
     }
 
@@ -29,9 +28,9 @@ class CommentController extends Controller
      */
     public function getComments($id)
     {
-        $comments = Comment::with(['user' => function($query){
+        $comments = Comment::with(['user' => function ($query) {
             $query->select(['id','name']);
-        }])->select()->orderBy('created_at','desc')->where('review_id',$id)->paginate(20);
+        }])->select()->orderBy('created_at', 'desc')->where('review_id', $id)->paginate(20);
         return response()->json(['comments' => $comments,
             'canUpdate' => auth()->user()->hasPermissionTo('edit comments'),
             'canDelete' => auth()->user()->hasPermissionTo('unpublish comment')]);

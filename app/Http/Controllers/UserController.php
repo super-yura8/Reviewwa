@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Http\Requests\PasswordChangeRequest;
 use Illuminate\Http\Request;
 
@@ -10,9 +9,8 @@ class UserController extends Controller
 {
 
     /**
-     * @param Request $request
+     * @param PasswordChangeRequest $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function changePass(PasswordChangeRequest $request)
     {

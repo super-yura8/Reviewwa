@@ -127,7 +127,7 @@ class AdminController extends Controller
 
     public function showReviewsByUser($user)
     {
-        $reviews = Review::all()->where('user.name',$user);
+        $reviews = Review::all()->where('user.name', $user);
         $counts = self::returnCounts();
         return view('layouts.reviews', compact('reviews', 'counts'));
     }

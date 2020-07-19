@@ -29,5 +29,4 @@ class CommentPolicy
     {
         return $user->hasPermissionTo('edit comments') || $user->id === $comment->user_id;
     }
-
 }

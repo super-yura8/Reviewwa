@@ -51,5 +51,4 @@ class UserMenuController extends Controller
         $users = User::findOrFail($user_ids);
         return view('layouts.subscribers', compact('users', 'count', 'type'));
     }
-
 }

@@ -20,7 +20,7 @@ class MainPageController extends Controller
     {
         $reviews = Review::findOrFail($id);
         $count = $reviews->comments()->count();
-        $comments = $reviews->comments()->orderBy('created_at','desc')->take(20)->get();
+        $comments = $reviews->comments()->orderBy('created_at', 'desc')->take(20)->get();
         $reviews = [$reviews];
         return view('layouts.mainPage', compact('reviews', 'comments', 'count'));
     }
