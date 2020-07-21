@@ -627,5 +627,20 @@ $(document).ready(function () {
         }
     })
 
+    $('#user-func-content').delegate('#showMoreReviews', 'click', function (e) {
+        e.preventDefault();
+        var el = $(this);
+        var link = el.attr('href');
+        $.ajax({
+            url: link,
+            success: function (data) {
+                $('#showMoreReviews').remove();
+                console.log($(data).find('#showMoreReviews')[0]);
+                $('#content').append($(data).find('#user-func-content').find('#content').html());
+                $('#user-func-content').append($(data).find('#showMoreReviews')[0]);
+            }
+        })
+    })
+
 });
 

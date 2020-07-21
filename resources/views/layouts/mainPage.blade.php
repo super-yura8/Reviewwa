@@ -35,5 +35,7 @@
             @include('inc.sidebar')
         </div>
     </div>
-    <div id="footer"></div>
+    @if($reviews->all() != null)
+        <a class="infinite-more-link w-100 btn btn-light" href="?page=2">More</a>
+    @endif
 @endsection

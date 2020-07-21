@@ -35,7 +35,7 @@
                                 <i class="glyphicon glyphicon-home"></i>
                                 Обзоры </a>
                         </li>
-                            @if(!auth()->check() || auth()->check() && auth()->id() == $user->id)
+                            @if(auth()->check() && auth()->id() == $user->id)
                             <li>
                                 <a href="user/changePassForm">
                                     <i class="glyphicon glyphicon-user"></i>
@@ -60,13 +60,12 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content" id="user-func-content">
-                @if(!auth()->check() || auth()->check() && auth()->id() == $user->id)
                     @include('inc.post')
-                @endif
+                    @if($reviews->nextPageUrl())
+                        <a href="{{ $reviews->nextPageUrl()}}" id="showMoreReviews" class="w-100 btn btn-light">Показать еще</a>
+                    @endif
             </div>
         </div>
     </div>
 </div>
-<br>
-<br>
 @endsection
