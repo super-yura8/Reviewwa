@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'MainPageController@index')->name('mainPage');
+Route::get('/new', 'MainPageController@index')->name('mainPage');
 Route::post('/uploader/img/upload', 'FileController@uploadImg');
 Route::post('uploader/review/upload', 'ReviewController@createReview')->name('reviewUpload');
 Route::get('/Reviews', 'MainPageController@getPage')->name('getPage');
@@ -25,6 +25,8 @@ Route::get('/user/{id}/follower', 'UserMenuController@followers');
 Route::get('/user/{id}/subscriptions', 'UserMenuController@subscriptions');
 Route::get('/user/{id}','UserMenuController@userById')->where('id', '^[0-9]+$');
 Route::get('/find/{find}','FindController@find')->where('find','.*');
+Route::get('/', 'MainPageController@popular');
+Route::get('/best/{periodName?}', 'MainPageController@best');
 Route::middleware('auth')->group(function () {
     Route::get('/tracked', 'MainPageController@showTracked');
     Route::get('subscribe/user/{id}', 'SubscribeController@subscribe')->where('id', '^[0-9]+$');

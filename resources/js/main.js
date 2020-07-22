@@ -625,7 +625,7 @@ $(document).ready(function () {
                 $('.infinite-more-link').attr('href', link);
             }
         }
-    })
+    });
 
     $('#user-func-content').delegate('#showMoreReviews', 'click', function (e) {
         e.preventDefault();
@@ -635,12 +635,49 @@ $(document).ready(function () {
             url: link,
             success: function (data) {
                 $('#showMoreReviews').remove();
-                console.log($(data).find('#showMoreReviews')[0]);
                 $('#content').append($(data).find('#user-func-content').find('#content').html());
                 $('#user-func-content').append($(data).find('#showMoreReviews')[0]);
             }
         })
     })
 
+    $('.best-radio').on('click', function () {
+        var val = $(this).attr('value');
+        var link = val ? '/' + val : '';
+        $.ajax({
+            url: '/best' + link,
+            success: function (data) {
+                infinite.destroy();
+                window.history.pushState({}, '', $(this)[0].url);
+                $('.infinite-more-link').remove();
+                $('#content').html($(data).find('#content').html());
+                if ($(data).find('#content').data('more')){
+                    $('#big-content').append('<a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?page=2">More</a>');
+                    link = $('.infinite-more-link').attr('href');
+                    infinite = new Waypoint.Infinite({
+                        element: $('#content')[0],
+                        items: '.post',
+                        onAfterPageLoad: function (data) {
+                            if(data.length == 0){
+                                $('.infinite-more-link').remove()
+                            }
+                            else{
+                                data.each((el) => {
+                                    if($(data[el]).find('.post-content').outerHeight() === 700) {
+                                        $(data[el]).find('.open-all').append('<a class="open-rev" href="#">' +
+                                            'Читать далее</a>')
+                                    }
+                                });
+                                link = link.split('=');
+                                link[1] = parseInt(link[1]) + 1;
+                                link = link.join('=');
+                                $('.infinite-more-link').attr('href', link);
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    })
 });
 

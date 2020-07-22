@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" data-more="{{$reviews->total()>10 ? 'true' : 'false'}}">
     @foreach($reviews as $review)
         <div id="{{ $review->id }}" class="card mb-4 post">
             <div class="card-body post-content">
@@ -110,6 +110,3 @@
     @endif
 </div>
 
-@if(!isset($comments))
-
-@endif
