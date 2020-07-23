@@ -36,8 +36,8 @@ class Review extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-    public function Genres()
+    public function genres()
     {
-        $this->belongsToMany('App\Models\ReviewsToGenres');
+        return $this->belongsToMany('App\Models\Genre', 'review_to_genre');
     }
 }

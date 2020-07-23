@@ -73,7 +73,7 @@
 
                 </div>
                 @include('inc.post')
-                @if($reviews->isNotEmpty() && $reviews->count()>1)
+                @if($reviews->isNotEmpty() && $reviews->count()>10)
                     <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?page=2">More</a>
                 @endif
             </div>

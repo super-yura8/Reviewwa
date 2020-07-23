@@ -10,8 +10,8 @@ class Genre extends Model
     protected $fillable = ['name'];
     public $timestamps = false;
 
-    public function Reviews()
+    public function reviews()
     {
-        $this->belongsToMany('App\Models\ReviewsToGenres');
+        return $this->belongsToMany('App\Model\Review', 'review_to_genre');
     }
 }

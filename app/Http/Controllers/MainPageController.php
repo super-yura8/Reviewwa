@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\File;
 use App\Model\Review;
 use App\Http\Controllers\CommentController;
+use App\Models\Genre;
 use App\Models\Subscribe;
 use App\User;
 use Carbon\Carbon;
@@ -22,23 +23,24 @@ class MainPageController extends Controller
 
     public function showReview($id)
     {
-        $reviews = Review::findOrFail($id);
-        $count = $reviews->comments()->count();
-        $comments = $reviews->comments()->orderBy('created_at', 'desc')->take(20)->get();
-        $reviews = collect([$reviews]);
+        $reviews = Review::where('id', $id)->paginate(1);
+        $count = $reviews->first()->comments()->count();
+        $comments = $reviews->first()->comments()->orderBy('created_at', 'desc')->take(20)->get();
         return view('layouts.mainPage', compact('reviews', 'comments', 'count'));
     }
 
     public function showReviewEditor()
     {
-        return view('layouts.addReview');
+        $genres = Genre::all();
+        return view('layouts.addReview', compact('genres'));
     }
 
     public function showEditor($id)
     {
+        $genres = Genre::all();
         $review = Review::findOrFail($id);
         $data = ['content' => $review->content, 'title' => $review->title, 'id' => $id];
-        return view('layouts.addReview', compact('data'));
+        return view('layouts.addReview', compact('data', 'genres'));
     }
 
     public function showTracked()
