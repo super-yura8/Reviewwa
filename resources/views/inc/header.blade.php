@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-info  header">
     <div class="container">
-        <a class="navbar-brand text-white" href="http://reviewwa/">Reviewwa</a>
+        <a class="navbar-brand text-white" href="/">Reviewwa</a>
         <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarResponsive">
-            <a href="addReview" class="btn btn-success text-monospace text-white mr-5">Добавить обзор</a>
+            <a href="/addReview" class="btn btn-success text-monospace text-white mr-5">Добавить обзор</a>
             <div class="input-group w-25">
                 <form action="#" class="w-100" id="find">
                     <input type="text" id="search-hide" class="form-control" placeholder="Поиск" style="display: none">

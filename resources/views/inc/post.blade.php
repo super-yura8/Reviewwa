@@ -7,8 +7,8 @@
                     {!! $review->content !!}
                 </div>
             </div>
-            <div class="card-body open-all">
-            </div>
+            <div class="card-body open-all"></div>
+            <div class="card-body pt-0">@foreach($review->genres as $genre)<a>{{$genre->name}} </a>@endforeach</div>
             <div class="card-footer text-muted footer">
                 <p class="float-left m-0">
                     дата публикации: {{ date('j-m-Y', strtotime($review->created_at)) }}

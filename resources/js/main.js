@@ -165,7 +165,8 @@ $(document).ready(function () {
                 method: 'put',
                 data: {
                     title: $('#editor input[type=text]').val(),
-                    content: CKEDITOR.instances.review.getData()
+                    content: CKEDITOR.instances.review.getData(),
+                    genres: $('input[type=checkbox]').serializeArray()
                 },
                 success: function (data) {
                     alert(data.message);
@@ -185,7 +186,8 @@ $(document).ready(function () {
                 method: 'post',
                 data: {
                     title: $('#editor input').val(),
-                    content: CKEDITOR.instances.review.getData()
+                    content: CKEDITOR.instances.review.getData(),
+                    genres: $('input[type=checkbox]').serializeArray()
                 },
                 success: function (data) {
                     alert(data.message);

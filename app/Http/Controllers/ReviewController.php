@@ -18,7 +18,12 @@ class ReviewController extends Controller
     public function createReview(ReviewFormRequest $request)
     {
         $data = $request->all();
-        Review::create(['title' => $data['title'], 'content' => $data['content'], 'user_id' => Auth::user()->id]);
+        $review = Review::create(['title' => $data['title'], 'content' => $data['content'], 'user_id' => Auth::user()->id]);
+        $genres = $data['genres'];
+        $genres = array_map(function ($el) {
+            return $el['value'];
+        },$genres);
+        $review->genres()->attach($genres);
         return response()->json([
             'success' => 'true',
             'message' => 'Review created'
