@@ -10,10 +10,11 @@ class FindController extends Controller
     public function find(Request $request)
     {
         if (isset($request->all()['find'])) {
-            $find = $request->all()['find'];
-            $reviews = Review::where('content', 'like', '%' . $find . '%')
-                ->orWhere('title', 'like', '%' . $find . '%')
-                ->paginate(10);
+            $find = explode(' ', $request->all()['find']);
+            $reviews = Review::whereRaw(
+                "MATCH(title,content) AGAINST(? IN BOOLEAN MODE)",
+                $find
+            )->paginate(10);
             return view('layouts.mainPage', compact('reviews'));
         } else {
             return abort(404);

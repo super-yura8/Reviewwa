@@ -20,6 +20,7 @@ class CreateReviewTable extends Migration
             $table->integer('user_id');
             $table->timestamps();
         });
+        DB::statement('ALTER TABLE reviews ADD FULLTEXT search(title, content)');
     }
 
     /**
@@ -29,6 +30,9 @@ class CreateReviewTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('review');
+        Schema::table('reviews', function($table) {
+            $table->dropIndex('search');
+        });
+        Schema::dropIfExists('reviews');
     }
 }
