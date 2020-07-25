@@ -204,99 +204,6 @@ $(document).ready(function () {
 
     });
 
-    // reviews paginate function
-    // var height = $('#content').height();
-    // var pageUrl = 'http://reviewwa/public/Reviews?page=2';
-    // $(document).on('scroll', function () {
-    //     var url = new URL(window.location.href);
-    //     if (url.pathname == '/') {
-    //
-    //         if ($(document).height() - height < $(document).scrollTop()) {
-    //             if (pageUrl) {
-    //                 getData(pageUrl);
-    //                 if (response) {
-    //                     pageUrl = response.reviews.next_page_url;
-    //                     var data = response.reviews.data;
-    //                     var content = '';
-    //                     data.map((el) => {
-    //                         var formatedDate = parseDate(el.created_at);
-    //                         var footerData;
-    //                         if ($('#user').data('id') == el.user_id) {
-    //                             footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
-    //                                 '                    <i class="fas fa-trash"></i>\n' +
-    //                                 '                </p>' +
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">\n' +
-    //                                 '                    <a href="#" class="edit-review">изменить</a>\n' +
-    //                                 '                </p>' +
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
-    //                         } else if (data['canUpdate'] && !data['canDelete']) {
-    //                             footerData =
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">\n' +
-    //                                 '                    <a href="#" class="edit-review">изменить</a>\n' +
-    //                                 '                </p>' +
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
-    //                         } else if (!data['canUpdate'] && data['canDelete']) {
-    //                             footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
-    //                                 '                    <i class="fas fa-trash"></i>\n' +
-    //                                 '                </p>' +
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
-    //                         } else if (data['canUpdate'] && data['canDelete']) {
-    //                             footerData = '<p class="float-right ml-1 mr-1 mb-0 del-review">\n' +
-    //                                 '                    <i class="fas fa-trash"></i>\n' +
-    //                                 '                </p>' +
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">\n' +
-    //                                 '                    <a href="#" class="edit-review">изменить</a>\n' +
-    //                                 '                </p>' +
-    //                                 '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>'
-    //                         } else {
-    //                             footerData = '<p class="float-right ml-1 mr-1 mb-0">' + el.user.name + '</p>';
-    //                         }
-    //                         content = content + '<div id="' + el.id + '" class="card mb-4 post">\n' +
-    //                             '            <div class="card-body post-content">\n' +
-    //                             '                <h2 class="card-title">' + el.title + '</h2>\n' +
-    //                             '                <p class="card-text">\n' +
-    //                             '                    ' + el.content + '\n' +
-    //                             '                    <span style="display: none"></span>\n' +
-    //                             '                </p>\n' +
-    //                             '            </div>\n' +
-    //                             '            <div class="card-body open-all">\n' +
-    //                             '            </div>\n' +
-    //                             '            <div class="card-footer text-muted footer">\n' +
-    //                             '                <p class="float-left m-0">\n' +
-    //                             '                    дата публикации: ' + formatedDate + '\n' +
-    //                             '                </p>\n' +
-    //                             '                <p class="float-left ml-1 mr-1 mb-0 like-count">\n' +
-    //                             '                    ' + el.likes_count + '\n' +
-    //                             '                </p>\n' +
-    //                             '                <p class="float-left ml-1 mr-1 mb-0 like">\n' +
-    //                             '                    <i font class="far fa-heart" style="font-size: 1.4em;"></i>\n' +
-    //                             '                </p>\n' +
-    //                             '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-    //                             '                    ' + el.comments_count + '\n' +
-    //                             '                </p>\n' +
-    //                             '                <p class="float-left ml-1 mr-1 mb-0">\n' +
-    //                             '                <a href="/Reviews/' + el.id + '" class="far fa-comment-alt" style="font-size: 1.4em; text-decoration: none;"></a>\n' +
-    //                             '                </p>\n' +
-    //                             '                ' + footerData +
-    //                             '            </div>\n' +
-    //                             '        </div>'
-    //                     });
-    //                     $('#content').append(content);
-    //                     data.forEach(el => {
-    //                         if ($('div#' + el.id + '.post .post-content').outerHeight() === 700) {
-    //                             $('div#' + el.id + '.post .open-all').append('<a class="open-rev" href="#">' +
-    //                                 'Читать далее</a>')
-    //                         }
-    //                     });
-    //                     content = '';
-    //                     data = [];
-    //                 }
-    //             }
-    //
-    //         }
-    //     }
-    // });
-
     $('#content').delegate('.post .footer .like', 'click', function () {
         var el = $(this);
         var id = el.parent().parent().attr('id');
@@ -601,9 +508,10 @@ $(document).ready(function () {
         })
     })
 
+    //search
     $('#find').on('submit', function (el) {
         el.preventDefault();
-        document.location.href = '/find/' + $(this).find('input').val();
+        document.location.href = '/find?find=' + $(this).find('input').val();
     })
 
     var link = $('.infinite-more-link').attr('href');
@@ -621,10 +529,23 @@ $(document).ready(function () {
                             'Читать далее</a>')
                     }
                 });
-                link = link.split('=');
-                link[1] = parseInt(link[1]) + 1;
-                link = link.join('=');
-                $('.infinite-more-link').attr('href', link);
+                link = link.split('&');
+                if (link.length > 1) {
+                    let pageLink = link[link.length-1];
+                    pageLink = pageLink.split('=');
+                    pageLink[1] = parseInt(pageLink[1]) + 1;
+                    pageLink = pageLink.join('=');
+                    link[link.length-1] = pageLink;
+                    link = link.join('&');
+                    $('.infinite-more-link').attr('href', link);
+                } else {
+                    link = link[0];
+                    link = link.split('=');
+                    link[1] = parseInt(link[1]) + 1;
+                    link = link.join('=');
+                    $('.infinite-more-link').attr('href', link);
+                }
+
             }
         }
     });

@@ -73,8 +73,12 @@
 
                 </div>
                 @include('inc.post')
-                @if($reviews->isNotEmpty() && $reviews->count()>10)
-                    <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?page=2">More</a>
+                @if($reviews->isNotEmpty() && $reviews->total()>10)
+                    @if(isset(request()->all()['find']))
+                        <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?find={{ request()->all()['find'] }}&page=2">More</a>
+                    @else
+                        <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?page=2">More</a>
+                    @endif
                 @endif
             </div>
             @include('inc.sidebar')

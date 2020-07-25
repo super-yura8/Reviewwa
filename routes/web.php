@@ -24,7 +24,7 @@ Route::get('/user/profile/reviews/{id}', 'ReviewController@usersReviews')->where
 Route::get('/user/{id}/follower', 'UserMenuController@followers');
 Route::get('/user/{id}/subscriptions', 'UserMenuController@subscriptions');
 Route::get('/user/{id}','UserMenuController@userById')->where('id', '^[0-9]+$');
-Route::get('/find/{find}','FindController@find')->where('find','.*');
+Route::get('/find','FindController@find')->where('find','.*');
 Route::get('/', 'MainPageController@popular');
 Route::get('/best/{periodName?}', 'MainPageController@best');
 Route::middleware('auth')->group(function () {
