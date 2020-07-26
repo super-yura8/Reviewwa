@@ -12,7 +12,7 @@
                 @if(!isset($data))
                     @foreach($genres as $genre)
                             <div class="w-25">
-                                <label>{{$genre->name}}</label><input type="checkbox" name="genre" value="{{$genre->id}}">
+                                <input type="checkbox" name="genre" class="mr-1" value="{{$genre->id}}"><label>{{$genre->name}}</label>
                             </div>
                     @endforeach
                 @endif

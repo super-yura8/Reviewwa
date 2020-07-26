@@ -18,7 +18,7 @@
                         <label for="">Password</label>
                         <input class="w-100" type="password" placeholder="Password" name="password">
                     </div>
-                    <button type="submit" class="btn btn-success" id="loginUser">Отправить</button>
+                    <button type="submit" class="btn btn-success loginUser">Отправить</button>
                 </form>
             </div>
         </div>
@@ -46,7 +46,7 @@
                         <label for="">Password</label>
                         <input class="w-100" type="password" placeholder="Password again" name="password_again">
                     </div>
-                    <button type="submit" class="btn btn-success" id="loginUser">Отправить</button>
+                    <button type="submit" class="btn btn-success loginUser">Отправить</button>
                 </form>
             </div>
         </div>

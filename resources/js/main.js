@@ -602,5 +602,20 @@ $(document).ready(function () {
             }
         })
     })
+
+    $('.genre-main').on('click', function () {
+        var options = window.location.search;
+        if (window.location.pathname != '/find') {
+            window.location.href =  window.location.origin + '/find?genre=' + $(this).attr('value')
+        } else if (options) {
+            if (options.indexOf('genre') == -1) {
+                window.location.search = window.location.search + '&genre=' + $(this).attr('value');
+            } else {
+                window.location.search = window.location.search + ',' + $(this).attr('value')
+            }
+        } else {
+            window.location.search = window.location.search + 'genre=' + $(this).attr('value');
+        }
+    })
 });
 

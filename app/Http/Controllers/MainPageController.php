@@ -17,8 +17,9 @@ class MainPageController extends Controller
 {
     public function index()
     {
+        $genres = Genre::all();
         $reviews = Review::paginate(10);
-        return view('layouts.mainPage', compact('reviews'));
+        return view('layouts.mainPage', compact('reviews', 'genres'));
     }
 
     public function showReview($id)
@@ -26,7 +27,8 @@ class MainPageController extends Controller
         $reviews = Review::where('id', $id)->paginate(1);
         $count = $reviews->first()->comments()->count();
         $comments = $reviews->first()->comments()->orderBy('created_at', 'desc')->take(20)->get();
-        return view('layouts.mainPage', compact('reviews', 'comments', 'count'));
+        $genres = Genre::all();
+        return view('layouts.mainPage', compact('reviews', 'comments', 'count', 'genres'));
     }
 
     public function showReviewEditor()
@@ -45,9 +47,10 @@ class MainPageController extends Controller
 
     public function showTracked()
     {
+        $genres = Genre::all();
         $users = array_keys(Subscribe::where('user_id', auth()->id())->get()->groupBy('subscriber_id')->toArray());
         $reviews = Review::whereIn('user_id', $users)->paginate(10);
-        return view('layouts.mainPage', compact('reviews'));
+        return view('layouts.mainPage', compact('reviews', 'genres'));
     }
 
     public function popular(Request $request)
@@ -74,11 +77,13 @@ class MainPageController extends Controller
         })->all();
         $collection = array_slice($collection, $skip, $perPage);
         $reviews = new LengthAwarePaginator($collection, Review::all()->count(), 10);
-        return view('layouts.mainPage', compact('reviews'));
+        $genres = Genre::all();
+        return view('layouts.mainPage', compact('reviews', 'genres'));
     }
 
     public function best($periodName = null)
     {
+        $genres = Genre::all();
         switch ($periodName) {
             case null:
                 $period = 1;
@@ -107,6 +112,6 @@ class MainPageController extends Controller
                 $el->where('like', 1);
             }])->orderByDesc('likes_count')->paginate(10);
         }
-        return view('layouts.mainPage', compact('reviews'));
+        return view('layouts.mainPage', compact('reviews', 'genres'));
     }
 }

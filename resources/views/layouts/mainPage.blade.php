@@ -67,15 +67,28 @@
                                     </form>
                                 </div>
                             @endif
-                            тут должны быть категории
+                            <div class="d-flex flex-wrap bg-gray-light border pl-4 w-100">
+                                @if(isset($genres))
+                                    @foreach($genres as $genre)
+                                        <div class="w-25">
+                                            <input type="checkbox" name="genre" class="genre-main mr-1" value="{{$genre->name}}" @if(isset(request()->all()['genre']))
+                                                {{ in_array($genre->name, explode(',', request()->all()['genre'])) ? 'checked': '' }}
+                                                @endif><label>{{$genre->name}}</label>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
                         </nav>
                     </div>
-
                 </div>
                 @include('inc.post')
                 @if($reviews->isNotEmpty() && $reviews->total()>10)
                     @if(isset(request()->all()['find']))
                         <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?find={{ request()->all()['find'] }}&page=2">More</a>
+                    @elseif(isset(request()->all()['genre']) && !isset(request()->all()['find']))
+                        <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?genre={{ request()->all()['genre'] }}&page=2">More</a>
+                    @elseif(isset(request()->all()['genre']) && !isset(request()->all()['find']))
+                        <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?find={{ request()->all()['find'] }}&genre={{request()->all()['genre']}}&page=2">More</a>
                     @else
                         <a id="show-more-rew" class="infinite-more-link w-100 btn btn-light" href="?page=2">More</a>
                     @endif
