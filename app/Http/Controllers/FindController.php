@@ -12,9 +12,10 @@ class FindController extends Controller
         if (isset($request->all()['find'])) {
             $find = explode(' ', $request->all()['find']);
             $reviews = Review::whereRaw(
-                "MATCH(title,content) AGAINST(? IN BOOLEAN MODE)",
+                "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
                 $find
-            )->paginate(10);
+            )->orderByRaw("MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
+                $find)->paginate(10);
             return view('layouts.mainPage', compact('reviews'));
         } else {
             return abort(404);
