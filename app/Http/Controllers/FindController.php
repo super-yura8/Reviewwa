@@ -18,22 +18,44 @@ class FindController extends Controller
                     return $el;
                 }
                 return $el->whereIn('name', $genres);
-            })->whereRaw(
-                "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
-                $find
-            )->orderByRaw("MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
-                $find)->paginate(10);
+            });
+            if (isset($request->all()['sort'])) {
+                $sort = $request->all()['sort'];
+                if ($sort == 'best') {
+                    $reviews = $reviews->whereRaw(
+                        "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
+                        $find
+                    )->withCount(['Likes' => function ($el) {
+                        $el->where('like', 1);
+                    }])->orderByDesc('likes_count')->paginate(10);
+                } elseif ($sort == 'new') {
+                    $reviews = $reviews->whereRaw(
+                        "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
+                        $find)->orderByDesc('created_at')->paginate(10);
+                } else {
+                    $reviews = $reviews->whereRaw(
+                        "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
+                        $find
+                    )->orderByRaw("MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
+                        $find)->paginate(10);
+                }
+            } else {
+                $reviews = $reviews->whereRaw(
+                    "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
+                    $find
+                )->orderByRaw("MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
+                    $find)->paginate(10);
+            }
         } elseif (isset($request->all()['genre'])) {
             $genres = explode(',', $request->all()['genre']);
             $reviews = Review::whereHas('genres', function ($el) use ($genres) {
-                if (!$genres)
-                {
+                if (!$genres) {
                     return $el;
                 }
                 return $el->whereIn('name', $genres);
             })->paginate(10);
         } else {
-            return abort(404);
+            $reviews = Review::paginate(10);
         }
         $genres = Genre::all();
         return view('layouts.mainPage', compact('reviews', 'genres'));

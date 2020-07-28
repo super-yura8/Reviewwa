@@ -21,6 +21,23 @@ $(document).ready(function () {
         })
     });
 
+    function formDataToObject(param)
+    {
+        param = param.split('&');
+        let arr = [];
+        param.forEach((el) => {
+            if (el){
+                el = el.split('=');
+                let params = el[el.length - 1];
+                params = params.split(',');
+                let name = el[0];
+                arr.push({name: name, value: params!= false  ? params : []});
+            }
+
+        });
+        return arr;
+    }
+
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
     function parseDate(date) {
@@ -604,18 +621,51 @@ $(document).ready(function () {
     })
 
     $('.genre-main').on('click', function () {
-        var options = window.location.search;
+        var options = window.location.search.substr(1);
+        options = formDataToObject(decodeURI(options));
         if (window.location.pathname != '/find') {
             window.location.href =  window.location.origin + '/find?genre=' + $(this).attr('value')
-        } else if (options) {
-            if (options.indexOf('genre') == -1) {
-                window.location.search = window.location.search + '&genre=' + $(this).attr('value');
-            } else {
-                window.location.search = window.location.search + ',' + $(this).attr('value')
-            }
         } else {
-            window.location.search = window.location.search + 'genre=' + $(this).attr('value');
+            let issetGenre = false;
+            // window.location.search = decodeURIComponent($.param(options));
+            options.forEach((el, index) => {
+               if (el.name === 'genre') {
+                   if (el.value.includes($(this).attr('value'))) {
+                       el.value.splice(el.value.indexOf($(this).attr('value')), 1);
+                       if(!el.value) {
+                           options.splice(index, 1)
+                       }
+                   } else {
+                       el.value.push($(this).attr('value'));
+                   }
+                    issetGenre = true;
+               }
+            });
+            if (!issetGenre) {
+                options.push({name: 'genre', value: $(this).attr('value')});
+            }
+            window.location.search = decodeURIComponent($.param(options));
         }
+    })
+
+    $('.sort-radio').on('click', function () {
+        var options = window.location.search.substr(1);
+        options = formDataToObject(decodeURI(options));
+        let issetSort = false;
+        options.forEach((el, index) => {
+            if (el.name === 'sort') {
+                if ($(this).attr('value')) {
+                    el.value = $(this).attr('value');
+                    issetSort = true;
+                } else {
+                    options.splice(index, 1);
+                }
+            }
+        });
+        if (!issetSort && $(this).attr('value')) {
+            options.push({name: 'sort' , value: $(this).attr('value')});
+        }
+        window.location.search = decodeURIComponent($.param(options));
     })
 });
 

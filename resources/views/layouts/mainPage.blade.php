@@ -77,7 +77,33 @@
                                         </div>
                                     @endforeach
                                 @endif
+
                             </div>
+                                @if(request()->path() == 'find')
+                                    <div class="pl-4 col-4">
+                                        <div class="w-100">
+                                            <input type="radio" name="sort" value="" class="mr-1 sort-radio"
+                                                @if(isset(request()->all()['find']) && !isset(request()->all()['sort']))
+                                                    checked
+                                                @endif>
+                                            <label for="">по схожести</label>
+                                        </div>
+                                        <div class="w-100">
+                                            <input type="radio" name="sort" value="new" class="mr-1 sort-radio"
+                                                 @if(isset(request()->all()['sort']) && request()->all()['sort'] == 'new')
+                                                   checked
+                                                @endif>
+                                            <label for="">новые</label>
+                                        </div>
+                                        <div class="w-100">
+                                            <input type="radio" name="sort" value="best" class="mr-1 sort-radio"
+                                                  @if(isset(request()->all()['sort']) && request()->all()['sort'] == 'best')
+                                                   checked
+                                                @endif>
+                                            <label for="">лучшие</label>
+                                        </div>
+                                    </div>
+                                @endif
                         </nav>
                     </div>
                 </div>
