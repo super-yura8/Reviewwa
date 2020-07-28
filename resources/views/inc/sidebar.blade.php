@@ -1,6 +1,12 @@
 <!-- Sidebar Widgets Column -->
 <div class="col-md-4">
     <!-- Categories Widget -->
+    @if($errors->any())
+        <div class="mt-3 alert alert-danger text-center">{{$errors->first()}}</div>
+    @endif
+    @if (session()->has('success'))
+        <div class="mt-3 alert alert-success text-center">{{ session()->get('success') }}</div>
+    @endif
     @if(!auth()->check())
         <div id="form-auth" class="card my-3">
             <h5 class="card-header">Вход</h5>
@@ -61,7 +67,7 @@
         {{--</div>--}}
     {{--</div>--}}
     @if(auth()->check())
-    <div class="card my-4 ">
+    <div class="card my-3">
         <h5 class="card-header">Чат</h5>
         <div class="card-body">
             общий чат(не виден если пользователь не зареган)

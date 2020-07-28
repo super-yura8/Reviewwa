@@ -12,7 +12,10 @@ class AuthController extends Controller
     {
         $data = $request->all();
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-            return redirect('/');
+            return redirect('/')->with('success', 'вы вошли');
+
+        } else {
+            return redirect('/')->withErrors(['message' => 'ошибка']);
         }
     }
 
@@ -22,7 +25,9 @@ class AuthController extends Controller
         if ($data['password'] == $data['password_again'] && !User::select()->where('email', $data['email'])->first()) {
             $user = User::create(['name' => $data['name'], 'email' => $data['email'], 'password' => password_hash($data['password'], 1)]);
             Auth::login($user);
-            return redirect('/');
+            return redirect('/')->with('success', 'вы зарегестировались)');
+        } else {
+            return redirect('/')->withErrors(['message' => 'ошибка']);
         }
     }
 }
