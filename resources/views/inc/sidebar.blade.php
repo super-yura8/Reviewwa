@@ -57,6 +57,7 @@
             </div>
         </div>
     @endif
+
     <!-- Side Widget -->
     {{--<div class="card my-4">--}}
         {{--<h5 class="card-header">Side Widget</h5>--}}
@@ -69,8 +70,8 @@
     @if(auth()->check())
     <div class="card my-3">
         <h5 class="card-header">Чат</h5>
-        <div class="card-body">
-            общий чат(не виден если пользователь не зареган)
+        <div id="app">
+            <chat></chat>
         </div>
     </div>
     @endif

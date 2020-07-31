@@ -23,11 +23,12 @@ Route::get('/user/reviews/{id}', 'ReviewController@getReviewByUser')->where('id'
 Route::get('/user/profile/reviews/{id}', 'ReviewController@usersReviews')->where('id', '^[0-9]+$');
 Route::get('/user/{id}/follower', 'UserMenuController@followers');
 Route::get('/user/{id}/subscriptions', 'UserMenuController@subscriptions');
-Route::get('/user/{id}','UserMenuController@userById')->where('id', '^[0-9]+$');
-Route::get('/find','FindController@find')->where('find','.*');
+Route::get('/user/{id}', 'UserMenuController@userById')->where('id', '^[0-9]+$');
+Route::get('/find', 'FindController@find')->where('find', '.*');
 Route::get('/', 'MainPageController@popular');
 Route::get('/best/{periodName?}', 'MainPageController@best');
 Route::middleware('auth')->group(function () {
+    Route::post('messages', 'ChatController@sendMessage');
     Route::get('/tracked', 'MainPageController@showTracked');
     Route::get('subscribe/user/{id}', 'SubscribeController@subscribe')->where('id', '^[0-9]+$');
     Route::get('unsubscribe/user/{id}', 'SubscribeController@unsubscribe')->where('id', '^[0-9]+$');

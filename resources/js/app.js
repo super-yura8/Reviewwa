@@ -11,6 +11,7 @@ require('jquery-ui/ui/effects/effect-slide');
 require('axios');
 require('waypoints/lib/jquery.waypoints.min');
 require('waypoints/lib/shortcuts/infinite.min');
+require('laravel-echo');
 require('./main');
 window.Vue = require('vue');
 
@@ -25,7 +26,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('chat', require('./components/Chat.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

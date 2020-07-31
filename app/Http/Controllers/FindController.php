@@ -31,20 +31,25 @@ class FindController extends Controller
                 } elseif ($sort == 'new') {
                     $reviews = $reviews->whereRaw(
                         "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
-                        $find)->orderByDesc('created_at')->paginate(10);
+                        $find
+                    )->orderByDesc('created_at')->paginate(10);
                 } else {
                     $reviews = $reviews->whereRaw(
                         "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
                         $find
-                    )->orderByRaw("MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
-                        $find)->paginate(10);
+                    )->orderByRaw(
+                        "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
+                        $find
+                    )->paginate(10);
                 }
             } else {
                 $reviews = $reviews->whereRaw(
                     "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE)",
                     $find
-                )->orderByRaw("MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
-                    $find)->paginate(10);
+                )->orderByRaw(
+                    "MATCH(title,content) AGAINST(? IN NATURAL LANGUAGE MODE) DESC",
+                    $find
+                )->paginate(10);
             }
         } elseif (isset($request->all()['genre'])) {
             $genres = explode(',', $request->all()['genre']);
