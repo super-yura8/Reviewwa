@@ -54,14 +54,16 @@
             },
 
             sendMessage() {
-                axios.post('/messages', {body: this.textMessage});
-                this.messages = this.checkSize(this.messages);
-                this.messages.push({message: this.textMessage, current: true});
-                this.textMessage = '';
-                console.log(this.messages);
-                this.$nextTick(function () {
-                    document.querySelector('#chat').scrollTo(0, document.querySelector('#chat').scrollHeight);
-                })
+                if (this.textMessage.replace(/ +/g, ' ').trim() !== '')
+                {
+                    axios.post('/messages', {body: this.textMessage});
+                    this.messages = this.checkSize(this.messages);
+                    this.messages.push({message: this.textMessage, current: true});
+                    this.textMessage = '';
+                    this.$nextTick(function () {
+                        document.querySelector('#chat').scrollTo(0, document.querySelector('#chat').scrollHeight);
+                    })
+                }
             }
         }
     }

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\MessagesRequest;
 use App\Events\Message;
 
 class ChatController extends Controller
 {
-    public function sendMessage(Request $request)
+    public function sendMessage(MessagesRequest $request)
     {
         Message::dispatch($request->input('body'));
     }
