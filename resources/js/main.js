@@ -667,5 +667,19 @@ $(document).ready(function () {
         }
         window.location.search = decodeURIComponent($.param(options));
     })
+
+    $('#file-input').on('change', function () {
+        var val = new FormData($(this).parent()[0]);
+        $.ajax({
+            url:'/user/avatar/upload',
+            method: 'post',
+            processData: false,
+            contentType: false,
+            data: val,
+            success: function (data) {
+                console.log(val);
+            }
+        })
+    })
 });
 

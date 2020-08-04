@@ -1,10 +1,11 @@
-.banBtn::before{
+.banBtn::before {
     content: "Забанить";
 }
 
-.unbanBtn::before{
+.unbanBtn::before {
     content: "Разбанить";
 }
+
 html, body {
     min-width: 100%;
     min-height: 100%;
@@ -13,26 +14,30 @@ html, body {
     overflow-x: hidden;
 }
 
-html{
+html {
     height: 100%;
 }
-.my-custom-full-class img{
+
+.my-custom-full-class img {
     width: 668px;
 }
 
-#editor{
+#editor {
     width: 725px;
 }
-.post-content{
+
+.post-content {
     overflow: hidden;
     max-height: 700px;
 
 }
-.post{
+
+.post {
 
     padding-bottom: 0;
 }
-img{
+
+p img {
     width: 100% !important;
     height: auto !important;
 }
@@ -46,8 +51,7 @@ img{
     line-height: 20px;
 }
 
-
-.img-comment{
+.img-comment {
     width: 50px !important;
 }
 
@@ -159,8 +163,57 @@ div:empty {
     padding: 0px !important;
 }
 
-#chat{
+#chat {
     height: 160px;
     max-height: 620px;
     resize: vertical;
+}
+
+.profile-userpic > form {
+    display: none;
+}
+
+.profile-userpic:hover {
+    background-color: rgba(0, 0, 0, 0.85);;
+    border-radius: 50%;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+#img:hover img {
+    opacity: 0.3;
+
+}
+
+#img:hover .middle {
+    opacity: 1;
+}
+
+.img-responsive {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.profile-userpic {
+    position: relative;
+}
+
+#img {
+    cursor: pointer;
+}
+
+a img, .img-responsive{
+    border-radius: 50%;
 }

@@ -6,7 +6,18 @@
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="user img">
+                    <label for="file-input" id="img" class="m-0">
+                        <img class="w-100" src="{{($user->avatars->first() != null) ? $user->avatars->first()->avatar_big : 'https://image.ibb.co/jw55Ex/def_face.jpg'}}" alt="user img">
+                        <div class="middle text-white">
+                            Изменить картинку
+                        </div>
+                    </label>
+                        @if(auth()->check() && auth()->id() == $user->id)
+                        <form enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" id="file-input" class="img-responsive" name="upload" alt="user img">
+                        </form>
+                    @endif
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->

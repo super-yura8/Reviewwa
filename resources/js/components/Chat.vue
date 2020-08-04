@@ -5,13 +5,15 @@
                 <div v-if="message.current" class="col-md-10 col-xs-10 bg-light">
                     <div class="messages msg_receive">
                         <p>{{message.message}}</p>
-                        <span>Вы</span>
                     </div>
                 </div>
-                <div class="col-md-2 col-xs-2 avatar">
+                <div v-if="!message.current" class="col-md-2 col-xs-2 avatar">
                     <img
-                        src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
+                        v-bind:src="message.img"
                         class=" img-responsive ">
+                </div>
+                <div v-if="message.current" class="col-md-2 col-xs-2 avatar">
+                    <span>Вы</span>
                 </div>
                 <div v-if="!message.current" class="col-md-10 col-xs-10 bg-light">
                     <div class="messages msg_receive">
@@ -39,7 +41,7 @@
         mounted() {
             window.Echo.channel('reviewwa_database_chat').listen('Message', ({message}) => {
                 this.messages = this.checkSize(this.messages);
-                this.messages.push({message: message.message, user: message.user, current: false});
+                this.messages.push({message: message.message, user: message.user, img: message.img , current: false});
                 this.$nextTick(function () {
                     document.querySelector('#chat').scrollTo(0, document.querySelector('#chat').scrollHeight);
                 })
@@ -58,7 +60,7 @@
                 {
                     axios.post('/messages', {body: this.textMessage});
                     this.messages = this.checkSize(this.messages);
-                    this.messages.push({message: this.textMessage, current: true});
+                    this.messages.push({message: this.textMessage, current: true,});
                     this.textMessage = '';
                     this.$nextTick(function () {
                         document.querySelector('#chat').scrollTo(0, document.querySelector('#chat').scrollHeight);

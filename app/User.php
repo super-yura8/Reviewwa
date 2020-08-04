@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Subscribe');
     }
+
+    public function avatars()
+    {
+        return $this->belongsToMany('App\Models\Avatars', 'user_to_avatars');
+    }
 }

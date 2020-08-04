@@ -24,4 +24,4 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 ./php-cs-fixer-v2.phar
-./php_cs.cache
+./laravel-echo-server.lock

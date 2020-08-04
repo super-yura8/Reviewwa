@@ -28,6 +28,8 @@ Route::get('/find', 'FindController@find')->where('find', '.*');
 Route::get('/', 'MainPageController@popular');
 Route::get('/best/{periodName?}', 'MainPageController@best');
 Route::middleware('auth')->group(function () {
+
+    Route::post('/user/avatar/upload ', 'FileController@uploadUserAvatarImg');
     Route::post('messages', 'ChatController@sendMessage');
     Route::get('/tracked', 'MainPageController@showTracked');
     Route::get('subscribe/user/{id}', 'SubscribeController@subscribe')->where('id', '^[0-9]+$');
