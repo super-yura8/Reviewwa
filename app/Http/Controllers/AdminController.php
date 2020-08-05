@@ -7,6 +7,8 @@ use App\Http\Requests\BanUserFormRequest;
 use App\Http\Requests\ChangeFormRequest;
 use App\Model\Review;
 use App\Models\Genre;
+use App\Models\Permissions;
+use App\Models\Roles;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\AdminHelper;
@@ -145,7 +147,9 @@ class AdminController extends Controller
     public function showAddUser()
     {
         $counts = AdminHelper::getCounts();
-        return view('layouts.addUser', compact('counts'));
+        $roles = Roles::all();
+        $permissions = Permissions::all();
+        return view('layouts.addUser', compact('counts', 'roles', 'permissions'));
     }
 
     /**

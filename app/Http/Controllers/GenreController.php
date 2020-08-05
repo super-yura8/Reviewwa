@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
-    // Todo: навесить политику
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
