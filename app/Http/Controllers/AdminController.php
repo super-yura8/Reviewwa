@@ -8,11 +8,10 @@ use App\Http\Requests\ChangeFormRequest;
 use App\Model\Review;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use App\Traits\AdminHelp;
+use App\Helpers\AdminHelper;
 
 class AdminController extends Controller
 {
-    use AdminHelp;
 
     /**
      * Create user function
@@ -109,7 +108,7 @@ class AdminController extends Controller
     public function showUsers()
     {
         $users = User::all();
-        $counts = self::returnCounts();
+        $counts = AdminHelper::getCounts();
         return view('layouts.users', compact('users', 'counts'));
     }
 
@@ -121,14 +120,14 @@ class AdminController extends Controller
     public function showReviews()
     {
         $reviews = Review::all();
-        $counts = self::returnCounts();
+        $counts = AdminHelper::getCounts();
         return view('layouts.reviews', compact('reviews', 'counts'));
     }
 
     public function showReviewsByUser($user)
     {
         $reviews = Review::all()->where('user.name', $user);
-        $counts = self::returnCounts();
+        $counts = AdminHelper::getCounts();
         return view('layouts.reviews', compact('reviews', 'counts'));
     }
 
@@ -139,7 +138,7 @@ class AdminController extends Controller
      */
     public function showAddUser()
     {
-        $counts = self::returnCounts();
+        $counts = AdminHelper::getCounts();
         return view('layouts.addUser', compact('counts'));
     }
 
@@ -150,7 +149,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $counts = self::returnCounts();
+        $counts = AdminHelper::getCounts();
         return view('layouts.master', compact('counts'));
     }
 }
