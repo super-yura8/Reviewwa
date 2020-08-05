@@ -63,7 +63,7 @@ class FileController extends Controller
                 auth()->user()->avatars()->attach($avatars->id);
             }
         } else {
-            abort(404);
+            return response(view('errors.404'), 404);
         }
     }
 }

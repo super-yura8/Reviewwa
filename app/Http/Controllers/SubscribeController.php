@@ -14,7 +14,7 @@ class SubscribeController extends Controller
             Subscribe::create(['user_id' => auth()->id(), 'subscriber_id' => $id]);
             return response()->json(['message' => 'Успех']);
         } else {
-            return abort(404, 'fail');
+            return response(view('errors.404'), 404);
         }
     }
 
@@ -25,7 +25,7 @@ class SubscribeController extends Controller
             Subscribe::where('subscriber_id', $id)->delete();
             return response()->json(['message' => 'Успех']);
         } else {
-            return abort(404, 'fail');
+            return response(view('errors.404'), 404);
         }
     }
 }

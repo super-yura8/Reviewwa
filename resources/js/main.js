@@ -676,10 +676,53 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             data: val,
-            success: function (data) {
-                console.log(val);
+            success: function () {
+                alert('успех');
             }
         })
     })
+
+    $('#addGenre').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'addGenre/add',
+            method: 'post',
+            data: $(this).serialize(),
+            success: function () {
+                alert('Жанр успешно добавлен');
+            },
+            error: function (data) {
+                var errors = data.responseJSON.errors;
+                var error;
+                for (error in errors) {
+                    alert(errors[error]);
+                }
+            }
+        })
+    });
+
+
+    $('#deleteGenre').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'removeGenre/delete',
+            method: 'delete',
+            data: $(this).serialize(),
+            success: function () {
+                $('.delGenre').each((el) => {if($($('.delGenre')[el]).find('input').is(':checked')) {
+                    $($('.delGenre')[el]).remove();
+                }});
+                alert('успешно добавлено');
+            },
+            error: function (data) {
+                var errors = data.responseJSON.errors;
+                var error;
+                for (error in errors) {
+                    alert(errors[error]);
+                }
+            }
+        })
+    });
+
 });
 

@@ -93,6 +93,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="addGenre" class="nav-link">
+                            <i class="nav-icon fas fa-plus-circle"></i>
+                            <p>
+                                Добавить жанр
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="removeGenre" class="nav-link">
+                            <i class="nav-icon fas fa-minus-circle"></i>
+                            <p>
+                                Удалить жанр
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

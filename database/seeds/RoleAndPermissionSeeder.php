@@ -25,12 +25,14 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'edit comments']);
         Permission::create(['name' => 'unpublish comment']);
         Permission::create(['name' => 'create admin']);
+        Permission::create(['name' => 'create genres']);
+        Permission::create(['name' => 'delete genres']);
 
-        $role = Role::create(['name' => 'user'])
+        Role::create(['name' => 'user'])
             ->givePermissionTo(['publish review', 'write comment']);
-        $role = Role::create(['name' => 'admin'])
-            ->givePermissionTo(['unpublish comment' ,'unpublish review', 'ban user', 'unban user']);
-        $role = Role::create(['name' => 'super-admin'])
+        Role::create(['name' => 'admin'])
+            ->givePermissionTo(['unpublish comment' ,'unpublish review', 'ban user', 'unban user', 'create genres']);
+        Role::create(['name' => 'super-admin'])
             ->givePermissionTo(Permission::all());
 
     }

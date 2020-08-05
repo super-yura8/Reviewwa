@@ -29,10 +29,7 @@
                 <h4>Роли: </h4>
                 <div class="col form-check">
                     @foreach(App\Models\Roles::all('name') as $role)
-                        @if($role->name != 'super-admin')
-                            <label for="">{{ $role->name }}</label>
-                            <input type="checkbox" name="role[]" value="{{ $role->name }}">,
-                        @endif
+                        @if($role->name != 'super-admin'){{$loop->first ? '' : ','}} <label for="">{{ $role->name }}</label><input type="checkbox" name="role[]" value="{{ $role->name }}">@endif
                     @endforeach
                 </div>
             </div>
@@ -42,7 +39,7 @@
                     <div class="col form-check">
                         @foreach(\App\Models\Permissions::all('name') as $item)
                             <label for="">{{ $item->name }}</label>
-                            <input type="checkbox" name="permission[]" value="{{ $item->name }}">,
+                            <input type="checkbox" name="permission[]" value="{{ $item->name }}">{{$loop->last ? '' : ','}}
                         @endforeach
                     </div>
                 </div>

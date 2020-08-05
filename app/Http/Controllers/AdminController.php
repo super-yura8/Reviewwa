@@ -6,6 +6,7 @@ use App\Http\Requests\AddUserFormRequest;
 use App\Http\Requests\BanUserFormRequest;
 use App\Http\Requests\ChangeFormRequest;
 use App\Model\Review;
+use App\Models\Genre;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\AdminHelper;
@@ -124,6 +125,11 @@ class AdminController extends Controller
         return view('layouts.reviews', compact('reviews', 'counts'));
     }
 
+    /**
+     * show page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showReviewsByUser($user)
     {
         $reviews = Review::all()->where('user.name', $user);
@@ -151,5 +157,23 @@ class AdminController extends Controller
     {
         $counts = AdminHelper::getCounts();
         return view('layouts.master', compact('counts'));
+    }
+
+    /**
+     * show page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showAddGenre()
+    {
+        $counts = AdminHelper::getCounts();
+        return view('layouts.addGenre', compact('counts'));
+    }
+
+    public function showRemoveGenre()
+    {
+        $counts = AdminHelper::getCounts();
+        $genres = Genre::all();
+        return view('layouts.removeGenre', compact('counts', 'genres'));
     }
 }

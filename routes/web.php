@@ -56,7 +56,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth', 'role:super-admin|adm
     Route::get('/', function () {
         return redirect(route('admin.main'));
     });
-
+    Route::get('/removeGenre', 'AdminController@showRemoveGenre');
+    Route::delete('/removeGenre/delete', 'GenreController@destroy')->name('removeGenres');
+    Route::get('/addGenre', 'AdminController@showAddGenre');
+    Route::post('/addGenre/add', 'GenreController@create')->name('addGenre');
     Route::get('/main', 'AdminController@index')->name('main');
     Route::get('/users', 'AdminController@showUsers')->name('users');
     Route::get('/reviews', 'AdminController@showReviews')->name('reviews');
