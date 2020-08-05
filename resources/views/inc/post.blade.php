@@ -41,7 +41,7 @@
 
                 @endif
                 <a href="/user/{{$review->user->id}}" class="float-right ml-1 mr-1 mb-0">{{ $review->user->name }}
-                    @if($review->user->avatars != null)<img
+                    @if($review->user->avatars->first() != null)<img
                         src="{{$review->user->avatars->first()->avatar_small}}" alt="" class="ml-1">
                     @endif
                 </a>{{--также надо добавить иконку--}}

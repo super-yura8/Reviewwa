@@ -16,7 +16,7 @@
                 <td class="user-name">{{ $user->name }}</td>
                 <td class="user-email">{{ $user->email }}</td>
                 <td class="user-reviews">{{ $user->reviews()->count() }}</td>
-                <td></td>
+                <td>{{ $user->subscribers->count() }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>
                     <div></div>

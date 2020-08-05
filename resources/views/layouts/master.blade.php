@@ -27,17 +27,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
 
         <!-- Right navbar links -->
 
@@ -56,7 +45,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="" class="img-circle elevation-2" alt="User Image">
+                    <img class="rounded-circle" src="{{(auth()->user()->avatars->first() != null) ?
+                     auth()->user()->avatars->first()->avatar_small : 'http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg'}}" alt="user img">
                 </div>
                 <div class="info">
                     <p class="d-block text-white">{{ Auth::user()->name }}</p>
@@ -70,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="users" class="nav-link">
+                        <a href="/admin/users" class="nav-link">
                             <i class="nav-icon fas fa-address-book"></i>
                             <p>
                                 Пользователи
@@ -78,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="reviews" class="nav-link">
+                        <a href="/admin/reviews" class="nav-link">
                             <i class="nav-icon fas fa-bookmark"></i>
                             <p>
                                 Обзоры
@@ -86,7 +76,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="addUser" class="nav-link">
+                        <a href="/admin/addUser" class="nav-link">
                             <i class="nav-icon fas fa-user-plus"></i>
                             <p>
                                 Создать пользователя
@@ -94,7 +84,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="addGenre" class="nav-link">
+                        <a href="/admin/addGenre" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
                                 Добавить жанр
@@ -102,7 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="removeGenre" class="nav-link">
+                        <a href="/admin/removeGenre" class="nav-link">
                             <i class="nav-icon fas fa-minus-circle"></i>
                             <p>
                                 Удалить жанр

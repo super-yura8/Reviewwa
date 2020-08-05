@@ -69,7 +69,12 @@ class User extends Authenticatable
 
     public function subscribers()
     {
-        return $this->hasMany('App\Models\Subscribe');
+        return $this->belongsToMany('App\User', 'subscribe', 'user_id', 'subscriber_id');
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany('App\User', 'subscribe',  'subscriber_id', 'user_id');
     }
 
     public function avatars()

@@ -34,8 +34,9 @@ class UserMenuController extends Controller
     public function followers($id)
     {
         $type = 'follower';
-        $count = Subscribe::where('subscriber_id', $id)->count();
-        $user_ids = array_keys(Subscribe::where('subscriber_id', $id)->paginate(10)->groupBy('user_id')->toArray());
+        $user = User::findOrFail($id);
+        $count = $user->subscribers->count();
+        $user_ids = array_keys($user->subscribers()->paginate(10)->groupBy('id')->toArray());
         $users = User::findOrFail($user_ids);
         return view('layouts.subscribers', compact('users', 'count', 'type'));
     }
@@ -43,8 +44,9 @@ class UserMenuController extends Controller
     public function subscriptions($id)
     {
         $type = 'subscriptions';
-        $count = Subscribe::where('user_id', $id)->count();
-        $user_ids = array_keys(Subscribe::where('user_id', $id)->paginate(10)->groupBy('subscriber_id')->toArray());
+        $user = User::findOrFail($id);
+        $count = $user->follows->count();
+        $user_ids = array_keys($user->follows()->paginate(10)->groupBy('id')->toArray());
         $users = User::findOrFail($user_ids);
         return view('layouts.subscribers', compact('users', 'count', 'type'));
     }
