@@ -210,9 +210,11 @@ $(document).ready(function () {
                     alert(data.message);
                 },
                 error: function (data) {
-                    var errors = data.responseJSON.errors.content;
+
+                    var errors = data.responseJSON.errors;
                     var error;
                     for (error in errors) {
+                        console.log(error);
                         alert(errors[error]);
                     }
                 }
@@ -253,10 +255,10 @@ $(document).ready(function () {
                 $('#comments').append('<div data-id="' + data.id + '" class="box-comment border-bottom bg-gray-light">\n' +
                     '                            <!-- User image -->\n' +
                     '                            <span >\n' +
-                    '                                <img class=" img-comment img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">\n' +
+                    '                                <img class=" img-circle img-sm" src="' + data.img + '" alt="User Image" style="width: 32px">\n' +
                     '                                        <div class="float-right">\n' +
                     '                                            <div>\n' +
-                    '                                            <li class="del-comment fas fa-trash"></li>\n' +
+                    '                                            <li class="del-comment float-right fas fa-trash"></li>\n' +
                     '                                            </div>\n' +
                     '                                            <div>\n' +
                     '                                                <a class="float-right edit-comment">изменить</a>\n' +
@@ -324,7 +326,7 @@ $(document).ready(function () {
 
                     $('#comments').append('<div data-id="' + data.id + '" class="box-comment border-bottom bg-gray-light">\n' +
                         '                            <span>\n' +
-                        '                                <img class="img-circle img-comment img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">\n' +
+                        '                                <img class="rounded-circle img-sm" src="/' + data.user.avatars[0].avatar_small + '" alt="User Image" style="width: 30px">\n' +
                         commentAction +
                         '                                <p class="mb-1">' + data.user.name + '\n' +
                         '                                    <span class="text-muted pull-right">' + formatedDate + '</span>\n' +

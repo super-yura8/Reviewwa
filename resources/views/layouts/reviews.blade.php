@@ -13,7 +13,7 @@
             <tr>
                 <td>{{ $review->id }}</td>
                 <td><a href="/Reviews/{{ $review->id }}">{{ $review->title }}</a></td>
-                <td>{{ $review->user->name }}</td>
+                <td><a href="/user/{{$review->user->id}}">{{ $review->user->name }}</a></td>
                 <td>{{ $review->likes()->where('like', 1)->count() }}</td>
                 <td>{{ $review->comments()->count() }}</td>
                 <td>{{ date('d-m-Y', strtotime($review->created_at))}}</td>

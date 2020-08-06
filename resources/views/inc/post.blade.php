@@ -60,7 +60,8 @@
                         <div data-id="{{ $comment->id }}" class="box-comment border-bottom bg-gray-light">
                             <!-- User image -->
                             <span >
-                                <img class=" img-comment img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image" style="width: 50px">
+                                <img class="mr-2 img-circle img-sm" src="{{($comment->user->avatars->first() != null) ?
+                    '/' . $comment->user->avatars->first()->avatar_small : 'http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg'}}" alt="User Image" width="32">
                                 @if(auth()->check())
                                     <div class="float-right">
                                     @if($comment->user_id === auth()->user()->id || auth()->user()->hasPermissionTo('unpublish comment'))

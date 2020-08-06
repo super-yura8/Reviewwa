@@ -48,7 +48,7 @@ class MainPageController extends Controller
     public function showTracked()
     {
         $genres = Genre::all();
-        $users = array_keys(Subscribe::where('user_id', auth()->id())->get()->groupBy('subscriber_id')->toArray());
+        $users = array_keys(auth()->user()->follows()->paginate(10)->groupBy('id')->toArray());
         $reviews = Review::whereIn('user_id', $users)->paginate(10);
         return view('layouts.mainPage', compact('reviews', 'genres'));
     }

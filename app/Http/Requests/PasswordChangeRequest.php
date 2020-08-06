@@ -25,7 +25,6 @@ class PasswordChangeRequest extends FormRequest
     public function rules()
     {
         return [
-            'originPass' => 'required|string|max:60|min:7|regex:'.self::REG_PASS,
             'pass' => 'required|string|max:60|min:7|regex:'.self::REG_PASS,
             'passAgg'=> 'required|string|max:60|min:7|regex:'.self::REG_PASS,
         ];

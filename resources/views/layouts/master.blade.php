@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img class="rounded-circle" src="{{(auth()->user()->avatars->first() != null) ?
-                     auth()->user()->avatars->first()->avatar_small : 'http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg'}}" alt="user img">
+                    '/' . auth()->user()->avatars->first()->avatar_small : 'http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg'}}" alt="user img">
                 </div>
                 <div class="info">
                     <p class="d-block text-white">{{ Auth::user()->name }}</p>

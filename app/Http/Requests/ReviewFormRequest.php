@@ -27,6 +27,7 @@ class ReviewFormRequest extends FormRequest
         return [
             'title' => 'required|string|max:50',
             'content' =>'required|string|min:30:max:30000',
+            'genres' => 'required'
         ];
     }
 }

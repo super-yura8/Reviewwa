@@ -32,7 +32,7 @@
                 <!-- SIDEBAR BUTTONS -->
                 <div class="profile-userbuttons">
                     @if(auth()->check() && auth()->id() != $user->id)
-                        @if(!auth()->user()->subscribers->where('subscriber_id', $user->id)->first())
+                        @if(!auth()->user()->follows->where('id', $user->id)->first())
                             <a id="subscribe-on-user" data-id="{{ $user->id }}" href="/subscribe/user/{{ $user->id }}" class="btn btn-success btn-sm">Подписаться</a>
                         @else
                             <a id="subscribe-on-user" href="/unsubscribe/user/{{ $user->id }}" class="btn btn-danger btn-sm">Отписаться</a>

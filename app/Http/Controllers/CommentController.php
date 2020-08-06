@@ -28,9 +28,8 @@ class CommentController extends Controller
      */
     public function getComments($id)
     {
-        $comments = Comment::with(['user' => function ($query) {
-            $query->select(['id','name']);
-        }])->select()->orderBy('created_at', 'desc')->where('review_id', $id)->paginate(20);
+        $comments = Comment::with(['user.avatars'
+        ])->select()->orderBy('created_at', 'desc')->where('review_id', $id)->paginate(20);
         return response()->json(['comments' => $comments,
             'canUpdate' => auth()->check() ? auth()->user()->hasPermissionTo('edit comments') : false,
             'canDelete' => auth()->check() ? auth()->user()->hasPermissionTo('unpublish comment'): false]) ;
@@ -47,7 +46,8 @@ class CommentController extends Controller
     {
         $data = $request->all();
         $comment = Comment::create(['content' => $data['content'], 'user_id' => auth()->id(), 'review_id' => $id]);
-        return response()->json(['message' => 'created!','name' => auth()->user()->name,'created_at' => date('d-m-Y'), 'content' => $data['content'], 'id' => $comment->id]);
+        return response()->json(['message' => 'created!','name' => auth()->user()->name,'created_at' => date('j-m-Y'), 'content' => $data['content'], 'id' => $comment->id, 'img' => (auth()->user()->avatars->first() != null) ?
+            '/' . auth()->user()->avatars->first()->avatar_small : 'http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg']);
     }
 
     /**
