@@ -123,5 +123,7 @@
             @include('inc.sidebar')
         </div>
     </div>
-
+    <div id="rightcolumn" style="display:none;">
+        <i class="fas fa-angle-up"></i>
+    </div>
 @endsection

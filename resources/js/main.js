@@ -726,5 +726,17 @@ $(document).ready(function () {
         })
     });
 
+
+    $(window).on('scroll',function () {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            $('#rightcolumn').show('slow');
+        } else {
+            $('#rightcolumn').hide('slow');
+        }
+    });
+
+    $('#rightcolumn').on('click', function () {
+        $('html, body').animate({scrollTop:0}, 500);
+    })
 });
 

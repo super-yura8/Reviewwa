@@ -217,3 +217,15 @@ div:empty {
 a img, .img-responsive{
     border-radius: 50%;
 }
+
+#rightcolumn {
+    margin: 0px;
+    bottom:0;
+    right:0;
+    font-family: Arial;
+    font-weight: bold;
+    height: auto;
+    width: 75px;
+    font-size: 3rem;
+    position: fixed;
+}
