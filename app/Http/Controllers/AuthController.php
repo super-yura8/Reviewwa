@@ -24,6 +24,7 @@ class AuthController extends Controller
         $data = $request->all();
         if ($data['password'] == $data['password_again'] && !User::select()->where('email', $data['email'])->first()) {
             $user = User::create(['name' => $data['name'], 'email' => $data['email'], 'password' => password_hash($data['password'], 1)]);
+            $user->assignRole('user');
             Auth::login($user);
             return redirect('/')->with('success', 'вы зарегестировались)');
         } else {

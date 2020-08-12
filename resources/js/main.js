@@ -228,7 +228,7 @@ $(document).ready(function () {
         var id = el.parent().parent().attr('id');
         var like = el.siblings('.like-count');
         $.ajax({
-            url: 'http://reviewwa/like/' + id,
+            url: window.location.origin + '/like/' + id,
             success: function (data) {
                 if (data.action == 'like') {
                     like.html(Number(like.html()) + 1);
@@ -285,7 +285,7 @@ $(document).ready(function () {
         });
         $('#comment-form textarea').val('');
     })
-    var page = 'http://reviewwa/comments/';
+    var page = window.location.origin + '/comments/';
     var commentPage = '?page=2';
     $('#more').on('click', function (el) {
         el.preventDefault();
@@ -426,7 +426,7 @@ $(document).ready(function () {
     $('#content').delegate('.post .footer .edit-review', 'click', function (el) {
         el.preventDefault();
         var id = $(this).parent().parent().parent().attr('id');
-        window.location = 'http://reviewwa/editReview/' + id;
+        window.location = window.location.origin + '/editReview/' + id;
     })
 
     $('.change-auth').on('click', function (el) {

@@ -12,7 +12,8 @@ class GenrePolicy
     /**
      * Create a new policy instance.
      *
-     * @return void
+     * @param User $user
+     * @return bool
      */
     public function create(User $user)
     {

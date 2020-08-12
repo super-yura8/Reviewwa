@@ -8,7 +8,7 @@
                 <div class="profile-userpic">
                     @if(auth()->check() && auth()->id() == $user->id)
                     <label for="file-input" id="img" class="m-0">
-                        <img class="w-100" src="{{($user->avatars->first() != null) ? $user->avatars->first()->avatar_big : 'https://image.ibb.co/jw55Ex/def_face.jpg'}}" alt="user img">
+                        <img class="w-100" src="{{($user->avatars->first() != null) ? '/'.$user->avatars->first()->avatar_big : 'https://image.ibb.co/jw55Ex/def_face.jpg'}}" alt="user img">
                         <div class="middle text-white">
                             Изменить картинку
                         </div>
@@ -18,7 +18,7 @@
                             <input type="file" id="file-input" class="img-responsive" name="upload" alt="user img">
                         </form>
                         @else
-                        <img class="w-100" src="{{($user->avatars->first() != null) ? $user->avatars->first()->avatar_big : 'https://image.ibb.co/jw55Ex/def_face.jpg'}}" alt="user img">
+                        <img class="w-100" src="{{($user->avatars->first() != null) ? '/'.$user->avatars->first()->avatar_big : 'https://image.ibb.co/jw55Ex/def_face.jpg'}}" alt="user img">
                     @endif
                 </div>
                 <!-- END SIDEBAR USERPIC -->
