@@ -1,5 +1,3 @@
-import Pages from './pages';
-
 $(document).ready(function () {
     //add user function
     $('#addUser').on('submit', function (e) {
