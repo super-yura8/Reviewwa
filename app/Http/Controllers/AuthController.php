@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReqisterRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class AuthController extends Controller
         }
     }
 
-    public function register(Request $request)
+    public function register(ReqisterRequest $request)
     {
         $data = $request->all();
         if ($data['password'] == $data['password_again'] && !User::select()->where('email', $data['email'])->first()) {
