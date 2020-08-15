@@ -23,7 +23,7 @@ class Message implements ShouldBroadcast
      */
     public function __construct($message)
     {
-        $this->message = ['message' => $message, 'user' => auth()->user(), 'img' => (auth()->user()->avatars != null)
+        $this->message = ['message' => $message, 'user' => auth()->user(), 'img' => (auth()->user()->avatars->first() != null)
             ? auth()->user()->avatars->first()->avatar_small
             : 'http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg'];
         $this->dontBroadcastToCurrentUser();
