@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +36,49 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('super-admin');
+    }
+
+    public function isAnyAdmin()
+    {
+        return $this->hasAnyRole(['admin', 'super-admin']);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Model\Review');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Likes');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
+    public function subscribers()
+    {
+        return $this->belongsToMany('App\User', 'subscribe', 'user_id', 'subscriber_id');
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany('App\User', 'subscribe',  'subscriber_id', 'user_id');
+    }
+
+    public function avatars()
+    {
+        return $this->belongsToMany('App\Models\Avatars', 'user_to_avatars');
+    }
 }
